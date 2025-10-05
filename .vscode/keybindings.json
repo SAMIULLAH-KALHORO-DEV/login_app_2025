@@ -1,0 +1,8 @@
+[
+  {
+    "key": "ctrl+alt+,",
+    "command": "type",
+    "args": { "text": ",\n" },
+    "when": "editorTextFocus && editorLangId == 'dart' && !editorReadonly"
+  }
+]
