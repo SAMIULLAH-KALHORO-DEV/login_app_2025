@@ -15,7 +15,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final emailcontroller = TextEditingController();
   final passwordcontroller = TextEditingController();
 
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   void dispose() {
