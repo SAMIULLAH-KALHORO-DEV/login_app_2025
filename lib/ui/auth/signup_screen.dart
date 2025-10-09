@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login_app_2025/ui/auth/login_screen.dart';
+import 'package:login_app_2025/utils/utils.dart';
 import 'package:login_app_2025/widgets/round_botton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -11,6 +12,7 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  bool loading = false;
   final _formkey = GlobalKey<FormState>();
   final emailcontroller = TextEditingController();
   final passwordcontroller = TextEditingController();
@@ -22,6 +24,32 @@ class _SignupScreenState extends State<SignupScreen> {
     emailcontroller.dispose();
     passwordcontroller.dispose();
     super.dispose();
+  }
+
+  // ignore: non_constant_identifier_names
+  void SignUp() {
+    setState(() {
+      loading = true;
+      Utils().toastMessage('Processing Data');
+    });
+    _auth
+        .createUserWithEmailAndPassword(
+          email: emailcontroller.text.toString(),
+          password: passwordcontroller.text.toString(),
+        )
+        .then((value) {
+          setState(() {
+            loading = false;
+            Utils().toastMessage('Account created successfully');
+          });
+        })
+        // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
+        .onError((error, StackTrace) {
+          Utils().toastMessage(error.toString());
+          setState(() {
+            loading = false;
+          });
+        });
   }
 
   @override
@@ -67,15 +95,13 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
             SizedBox(height: 50),
             RoundBotton(
+              loading: loading,
               title: 'Sign Up',
               height: 50,
               ontap: () {
                 if (_formkey.currentState!.validate()) {
                   // Handle login
-                  _auth.createUserWithEmailAndPassword(
-                    email: emailcontroller.text.toString(),
-                    password: passwordcontroller.text.toString(),
-                  );
+                  SignUp();
                 }
               },
             ),

@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:login_app_2025/ui/auth/signup_screen.dart';
+import 'package:login_app_2025/ui/post_screen/post_screen.dart';
+import 'package:login_app_2025/utils/utils.dart';
 import 'package:login_app_2025/widgets/round_botton.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -14,12 +17,39 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formkey = GlobalKey<FormState>();
   final emailcontroller = TextEditingController();
   final passwordcontroller = TextEditingController();
+  bool loading = false;
+
+  final _auth = FirebaseAuth.instance;
 
   @override
   void dispose() {
+    super.dispose();
     emailcontroller.dispose();
     passwordcontroller.dispose();
-    super.dispose();
+  }
+
+  void login() {
+    setState(() {
+      loading = true;
+    });
+    _auth
+        .signInWithEmailAndPassword(email: emailcontroller.text, password: passwordcontroller.text)
+        .then((value) {
+          Utils().toastMessage(value.user!.email.toString());
+          // ignore: use_build_context_synchronously
+          Navigator.push(context, MaterialPageRoute(builder: (context) => PostScreen()));
+          setState(() {
+            loading = false;
+          });
+        })
+        .onError((error, stackTrace) {
+          debugPrint(error.toString());
+          Utils().toastMessage(error.toString());
+
+          setState(() {
+            loading = false;
+          });
+        });
   }
 
   @override
@@ -71,11 +101,13 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               SizedBox(height: 50),
               RoundBotton(
+                loading: loading,
                 title: 'Login',
                 height: 50,
                 ontap: () {
                   if (_formkey.currentState!.validate()) {
                     // Handle login
+                    login();
                   }
                 },
               ),
