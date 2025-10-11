@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_app_2025/utils/utils.dart';
 import 'package:login_app_2025/widgets/round_botton.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -30,10 +31,33 @@ class _AddPostScreenState extends State<AddPostScreen> {
             ),
             SizedBox(height: 30),
             RoundBotton(
+              loading: loading,
               title: 'Add',
               height: 60,
               ontap: () {
-                databaseRef.child('1').set({'id': '1'});
+                setState(() {
+                  loading = true;
+                });
+                databaseRef
+                    .child(DateTime.now().microsecondsSinceEpoch.toString())
+                    .set({
+                      'description': postController.text.toString(),
+                      'id': DateTime.now().microsecondsSinceEpoch.toString(),
+                    })
+                    .then(
+                      (value) {
+                        Utils().toastMessage('Post added');
+                        setState(() {
+                          loading = false;
+                        });
+                      },
+                      onError: (error, stackTrace) {
+                        Utils().toastMessage(error.toString());
+                        setState(() {
+                          loading = false;
+                        });
+                      },
+                    );
               },
             ),
           ],
