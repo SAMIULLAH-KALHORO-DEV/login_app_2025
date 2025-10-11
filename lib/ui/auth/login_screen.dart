@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:login_app_2025/ui/auth/login_with_phone_number.dart';
 import 'package:login_app_2025/ui/auth/signup_screen.dart';
 import 'package:login_app_2025/ui/post_screen/post_screen.dart';
 import 'package:login_app_2025/utils/utils.dart';
@@ -123,6 +124,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Text('Sign Up'),
                   ),
                 ],
+              ),
+              SizedBox(height: 30),
+              InkWell(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginWithPhoneNumber(   )));
+                },
+                child: Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.black),
+                  ),
+                  child: Center(child: Text('Login with Phone number')),
+                ),
               ),
             ],
           ),
