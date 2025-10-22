@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:login_app_2025/ui/auth/login_screen.dart';
 import 'package:login_app_2025/utils/utils.dart';
@@ -16,8 +17,10 @@ class _SignupScreenState extends State<SignupScreen> {
   final _formkey = GlobalKey<FormState>();
   final emailcontroller = TextEditingController();
   final passwordcontroller = TextEditingController();
+  final usernamecontroller = TextEditingController();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final DatabaseReference _database = FirebaseDatabase.instance.ref('Users');
 
   @override
   void dispose() {
@@ -37,13 +40,19 @@ class _SignupScreenState extends State<SignupScreen> {
           email: emailcontroller.text.toString(),
           password: passwordcontroller.text.toString(),
         )
-        .then((value) {
+        .then((value) async {
+          // Save username in Realtime Database
+          await _database.child(value.user!.uid).set({
+            'email': emailcontroller.text.toString(),
+            'username': usernamecontroller.text.toString(),
+            'uid': value.user!.uid,
+          });
+
           setState(() {
             loading = false;
-            Utils().toastMessage('Account created successfully');
           });
+          Utils().toastMessage('Account created successfully');
         })
-        // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
         .onError((error, StackTrace) {
           Utils().toastMessage(error.toString());
           setState(() {
@@ -66,6 +75,19 @@ class _SignupScreenState extends State<SignupScreen> {
               key: _formkey,
               child: Column(
                 children: [
+                  TextFormField(
+                    keyboardType: TextInputType.text,
+                    controller: usernamecontroller,
+                    decoration: InputDecoration(labelText: 'Username', suffixIcon: Icon(Icons.person)),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter email';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: 20),
+
                   TextFormField(
                     keyboardType: TextInputType.emailAddress,
                     controller: emailcontroller,
@@ -102,6 +124,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 if (_formkey.currentState!.validate()) {
                   // Handle login
                   SignUp();
+                  // Navigator.pop(context);
                 }
               },
             ),

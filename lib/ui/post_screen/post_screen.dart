@@ -6,6 +6,7 @@ import 'package:login_app_2025/ui/auth/login_screen.dart';
 import 'package:login_app_2025/ui/post_screen/add_posts.dart';
 import 'package:login_app_2025/utils/utils.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:interactive_bottom_sheet/interactive_bottom_sheet.dart';
 
 class PostScreen extends StatefulWidget {
   const PostScreen({super.key});
@@ -17,16 +18,26 @@ class PostScreen extends StatefulWidget {
 class _PostScreenState extends State<PostScreen> {
   final auth = FirebaseAuth.instance;
   final ref = FirebaseDatabase.instance.ref('Posts');
+  final refuser = FirebaseDatabase.instance.ref('Users');
   final searchFilter = TextEditingController();
   final editController = TextEditingController();
+
+  Future<String> getUsername(String uid) async {
+    final snapshot = await refuser.child(uid).get();
+    if (snapshot.exists) {
+      return snapshot.child('username').value.toString();
+    } else {
+      return 'Unknown';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+      automaticallyImplyLeading: false,
         centerTitle: true,
-        title: Text('Post Screen'),
+        title: Text('Simple Chat'),
         actions: [
           IconButton(
             onPressed: () {
@@ -51,7 +62,7 @@ class _PostScreenState extends State<PostScreen> {
             child: TextFormField(
               controller: searchFilter,
               decoration: InputDecoration(
-                hintText: 'Search post',
+                hintText: 'Search message',
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
               ),
               onChanged: (String value) {
@@ -59,46 +70,59 @@ class _PostScreenState extends State<PostScreen> {
               },
             ),
           ),
+
           Expanded(
             child: FirebaseAnimatedList(
               query: ref,
+
               defaultChild: Center(child: Text('Loading', style: TextStyle(fontSize: 30))),
               itemBuilder: (context, snapshot, animation, index) {
                 final title = snapshot.child('title').value.toString();
+                final uid = snapshot.child('userid').value.toString();
                 // subtitle: Text(snapshot.child('id').value.toString()),
 
                 if (searchFilter.text.isEmpty) {
-                  return ListTile(
-                    title: Text(snapshot.child('title').value.toString()),
-                    subtitle: Text(snapshot.child('id').value.toString()),
-                    trailing: PopupMenuButton(
-                      icon: Icon(Icons.more_vert),
-                      itemBuilder: (context) => [
-                        PopupMenuItem(
-                          value: 1,
-                          child: ListTile(
-                            leading: Icon(Icons.edit),
-                            title: Text('Edit'),
-                            onTap: () {
-                              Navigator.pop(context);
-                              showMyDialog(context, title, snapshot.child('id').value.toString());
-                            },
+                  return FutureBuilder<String>(
+                    future: getUsername(uid),
+                    builder: (context, usersnapshot) {
+                      if (usersnapshot.connectionState == ConnectionState.waiting) {
+                        return const ListTile(title: Text('Loading...'));
+                      }
+
+                      final username = usersnapshot.data ?? 'Unknown';
+                      return Card(
+                        margin: const EdgeInsets.all(8.0),
+                        child: ListTile(
+                          title: Text(title),
+                          subtitle: Text('by $username'),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: Icon(Icons.edit, color: Colors.blue),
+                                onPressed: () {
+                                  showMyDialog(context, title, snapshot.child('id').value.toString());
+                                },
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.delete, color: Colors.red),
+                                onPressed: () {
+                                  ref
+                                      .child(snapshot.child('id').value.toString())
+                                      .remove()
+                                      .then((value) {
+                                        Utils().toastMessage('Post deleted');
+                                      })
+                                      .onError((error, stackTrace) {
+                                        Utils().toastMessage(error.toString());
+                                      });
+                                },
+                              ),
+                            ],
                           ),
                         ),
-                        PopupMenuItem(
-                          value: 1,
-                          child: ListTile(
-                            leading: Icon(Icons.delete),
-                            title: Text('delete'),
-                            onTap: () {
-                              Navigator.pop(context);
-                              // ignore: avoid_single_cascade_in_expression_statements
-                              ref..child(snapshot.child('id').value.toString()).remove();
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
+                      );
+                    },
                   );
                 } else if (title.toLowerCase().contains(searchFilter.text.toLowerCase())) {
                   return ListTile(
@@ -116,7 +140,16 @@ class _PostScreenState extends State<PostScreen> {
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => AddPostScreen()));
+          // Navigator.push(context, MaterialPageRoute(builder: (context) => AddPostScreen()));
+          showModalBottomSheet(
+            scrollControlDisabledMaxHeightRatio: .8,
+
+            enableDrag: true,
+            context: context,
+            builder: (BuildContext context) {
+              return AddPostScreen();
+            },
+          );
         },
         child: Icon(Icons.add),
       ),
