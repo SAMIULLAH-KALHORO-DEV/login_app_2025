@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,7 +5,6 @@ import 'package:login_app_2025/ui/auth/login_screen.dart';
 import 'package:login_app_2025/ui/post_screen/add_posts.dart';
 import 'package:login_app_2025/utils/utils.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:interactive_bottom_sheet/interactive_bottom_sheet.dart';
 
 class PostScreen extends StatefulWidget {
   const PostScreen({super.key});

@@ -47,11 +47,13 @@ class _ContactsScreenState extends State<ContactsScreen> {
               itemCount: contacts.length,
               itemBuilder: (context, index) {
                 final c = contacts[index];
+                print(' Contact: ${c.displayName}, Phones: ${c.phones.map((p) => p.number).join(', ')}');
                 final phone = c.phones.isNotEmpty ? c.phones.first.number : 'No number';
                 return ListTile(
-                  leading: CircleAvatar(child: Text(c.displayName[0])),
-                  title: Text(c.displayName),
-                  subtitle: Text(phone),
+                  // leading: CircleAvatar(child: Text(c.displayName[0])),
+                  // title: Text(c.displayName),
+                  // subtitle: Text(phone),
+                  // title: Center(child: Text('your contacts are saved on our server')),
                 );
               },
             ),
