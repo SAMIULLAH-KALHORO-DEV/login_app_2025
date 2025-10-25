@@ -31,6 +31,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
       setState(() {
         isLoading = false;
       });
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Permission denied to read contacts')));
     }
   }
@@ -46,9 +47,9 @@ class _ContactsScreenState extends State<ContactsScreen> {
           : ListView.builder(
               itemCount: contacts.length,
               itemBuilder: (context, index) {
-                final c = contacts[index];
-                print(' Contact: ${c.displayName}, Phones: ${c.phones.map((p) => p.number).join(', ')}');
-                final phone = c.phones.isNotEmpty ? c.phones.first.number : 'No number';
+                // final c = contacts[index];
+                // print(' Contact: ${c.displayName}, Phones: ${c.phones.map((p) => p.number).join(', ')}');
+                // final phone = c.phones.isNotEmpty ? c.phones.first.number : 'No number';
                 return ListTile(
                   // leading: CircleAvatar(child: Text(c.displayName[0])),
                   // title: Text(c.displayName),

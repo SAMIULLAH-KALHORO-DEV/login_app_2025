@@ -59,6 +59,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                             loading = false;
                           });
                           postController.clear();
+                          // ignore: use_build_context_synchronously
                           Navigator.pop(context);
                         },
                         onError: (error, stackTrace) {

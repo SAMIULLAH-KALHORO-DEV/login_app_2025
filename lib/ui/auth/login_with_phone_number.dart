@@ -12,7 +12,6 @@ class LoginWithPhoneNumber extends StatefulWidget {
 }
 
 class _LoginWithPhoneNumberState extends State<LoginWithPhoneNumber> {
-  @override
   final phoneNumberController = TextEditingController();
   bool looding = false;
   final auth = FirebaseAuth.instance;

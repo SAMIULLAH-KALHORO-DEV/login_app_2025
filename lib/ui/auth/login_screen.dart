@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:login_app_2025/ui/auth/login_with_phone_number.dart';
 import 'package:login_app_2025/ui/auth/signup_screen.dart';
+import 'package:login_app_2025/ui/forget_password_screen.dart';
 import 'package:login_app_2025/ui/post_screen/post_screen.dart';
 import 'package:login_app_2025/utils/utils.dart';
 import 'package:login_app_2025/widgets/round_botton.dart';
@@ -112,6 +113,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   }
                 },
               ),
+              Align(
+                alignment: AlignmentGeometry.bottomRight,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPasswordScreen()));
+                  },
+                  child: Text('Forget Password'),
+                ),
+              ),
               SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -128,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: 30),
               InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginWithPhoneNumber(   )));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginWithPhoneNumber()));
                 },
                 child: Container(
                   height: 50,

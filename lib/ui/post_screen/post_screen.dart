@@ -42,6 +42,7 @@ class _PostScreenState extends State<PostScreen> {
               auth
                   .signOut()
                   .then((value) {
+                    // ignore: use_build_context_synchronously
                     Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
                   })
                   .onError((error, stackTrace) {
@@ -91,6 +92,7 @@ class _PostScreenState extends State<PostScreen> {
                       return Card(
                         margin: const EdgeInsets.all(8.0),
                         child: ListTile(
+                          
                           title: Text(title),
                           subtitle: Text('by $username'),
                           trailing: Row(
@@ -162,11 +164,9 @@ class _PostScreenState extends State<PostScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('update'),
-          content: Container(
-            child: TextFormField(
-              controller: editController,
-              decoration: InputDecoration(hintText: 'Edit here'),
-            ),
+          content: TextFormField(
+            controller: editController,
+            decoration: InputDecoration(hintText: 'Edit here'),
           ),
           actions: [
             TextButton(

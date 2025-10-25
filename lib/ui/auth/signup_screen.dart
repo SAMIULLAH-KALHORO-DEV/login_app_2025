@@ -53,7 +53,8 @@ class _SignupScreenState extends State<SignupScreen> {
           });
           Utils().toastMessage('Account created successfully');
         })
-        .onError((error, StackTrace) {
+        // ignore: avoid_types_as_parameter_names
+        .onError((error, stackTrace) {
           Utils().toastMessage(error.toString());
           setState(() {
             loading = false;
