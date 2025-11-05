@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:login_app_2025/ui/auth/login_screen.dart';
 import 'package:login_app_2025/ui/firestore/firestore_list_screen.dart';
 // import 'package:login_app_2025/ui/firestore/firestore_list_screen.dart';
-import 'package:login_app_2025/ui/post_screen/upload_image.dart';
 
 class SplashServices {
   void isLogin(BuildContext context) {
