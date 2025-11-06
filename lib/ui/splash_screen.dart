@@ -20,7 +20,16 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(child: Text('Splash Screen', style: TextStyle(fontSize: 30))),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          
+          
+
+          
+        ],
+      ),
     );
   }
 }
