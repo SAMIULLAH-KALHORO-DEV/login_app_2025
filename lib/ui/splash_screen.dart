@@ -13,7 +13,6 @@ class _SplashScreenState extends State<SplashScreen> {
   SplashServices splashscreen = SplashServices();
   @override
   void initState() {
-
     super.initState();
     splashscreen.isLogin(context);
   }
@@ -21,15 +20,31 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          
-          AssetImage(Image(image: Image.)
-
-          
-        ],
+      backgroundColor: Colors.white,
+      body: Padding(
+        padding: EdgeInsets.all(20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image(image: AssetImage(AppAssets.logo)),
+            SizedBox(height: 40),
+            Text(
+              'Our Vision',
+              style: TextStyle(
+                fontFamily: 'manrope',
+                fontSize: 50,
+                fontWeight: FontWeight.bold,
+                color: Colors.redAccent,
+              ),
+            ),
+            Text(
+              textAlign: TextAlign.center,
+              AppAssets.usbtext,
+              style: TextStyle(fontFamily: 'manrope', fontSize: 20, color: Color.fromARGB(134, 0, 0, 0)),
+            ),
+          ],
+        ),
       ),
     );
   }
