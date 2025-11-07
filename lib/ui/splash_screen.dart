@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_app_2025/constants/app_assets.dart';
 import 'package:login_app_2025/firebaseServices/splash_services.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -25,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           
-          
+          AssetImage(Image(image: Image.)
 
           
         ],
