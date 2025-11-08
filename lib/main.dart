@@ -14,6 +14,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, title: 'Flutter Demo', home: const SplashScreen());
+    return MaterialApp(
+      color: Colors.white,
+      debugShowCheckedModeBanner: false, title: 'Flutter Demo', home: const SplashScreen());
   }
 }

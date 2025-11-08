@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_app_2025/constants/Theme.dart';
 
 class RoundBotton extends StatelessWidget {
   final VoidCallback ontap;
@@ -14,12 +15,12 @@ class RoundBotton extends StatelessWidget {
       child: Container(
         height: height,
 
-        decoration: BoxDecoration(color: Colors.deepPurple, borderRadius: BorderRadius.circular(20)),
+        decoration: ContainerTheme().containerTheme1,
 
         child: Center(
           child: loading
               ? CircularProgressIndicator(strokeWidth: 3, color: Colors.white)
-              : Text(title, style: TextStyle(color: Colors.white)),
+              : Text(title, style: TextsTheme().heading2sytle),
         ),
       ),
     );

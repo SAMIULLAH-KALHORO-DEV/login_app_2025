@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:login_app_2025/ui/auth/login_with_phone_number.dart';
 import 'package:login_app_2025/ui/auth/signup_screen.dart';
+import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard.dart';
 import 'package:login_app_2025/ui/forget_password_screen.dart';
-import 'package:login_app_2025/ui/post_screen/post_screen.dart';
 import 'package:login_app_2025/utils/utils.dart';
 import 'package:login_app_2025/widgets/round_botton.dart';
 
@@ -39,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
         .then((value) {
           Utils().toastMessage(value.user!.email.toString());
           // ignore: use_build_context_synchronously
-          Navigator.push(context, MaterialPageRoute(builder: (context) => PostScreen()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => AdminDashboard()));
           setState(() {
             loading = false;
           });

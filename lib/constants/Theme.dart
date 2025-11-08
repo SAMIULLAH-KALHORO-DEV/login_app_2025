@@ -11,11 +11,17 @@ class TextsTheme {
   );
   final heading2sytle = TextStyle(
     fontFamily: 'manrope',
+    fontSize: 20,
+    color: Color(0xFF075B5E),
+    fontWeight: FontWeight.w700,
+  );
+  final heading3sytle = TextStyle(
+    fontFamily: 'manrope',
     fontSize: 12,
     color: Color(0xFF075B5E),
     fontWeight: FontWeight.bold,
   );
-  final heading3sytle = TextStyle(
+  final heading4sytle = TextStyle(
     fontFamily: 'manrope',
     fontSize: 12,
     color: Color(0xFF075B5E),
@@ -45,6 +51,48 @@ class ContainerTheme {
   );
 }
 
+class TextFieldBorder extends StatelessWidget {
+  final String? hintText;
+  final TextEditingController? textEditingController;
+  final String? validationText;
+
+  const TextFieldBorder({super.key, this.hintText, this.textEditingController, this.validationText});
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: textEditingController,
+      decoration: InputDecoration(
+        hintText: hintText,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
+        ),
+        suffixIcon: Icon(Icons.person),
+      ),
+      validator: (value) {
+        if (value!.isEmpty) {
+          return validationText;
+        }
+        return null;
+      },
+    );
+  }
+}
+
+class TextFieldOutlineborder {
+    final textFieldBorder = InputDecoration(
+      hintText: '',
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
+      ),
+
+      suffixIcon: Icon(Icons.person),
+    );
+  }
+
+
 class ContainerTheme2 extends StatelessWidget {
   final DecorationImage? image;
   final Widget? child;
@@ -65,6 +113,16 @@ class ContainerTheme2 extends StatelessWidget {
             // offset: Offset(3, 3), // x and y offset
           ),
         ],
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color.fromARGB(255, 255, 255, 255), // soft cream
+            // Color(0xFF005F63), // teal
+            Color(0xFFFF3F33), // red
+          ],
+          stops: [0.9, 0.1],
+        ),
       ),
     );
   }
