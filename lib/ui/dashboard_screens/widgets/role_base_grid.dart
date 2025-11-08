@@ -1,10 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:login_app_2025/constants/text_theme.dart';
 
 class RoleBasedGrid extends StatelessWidget {
   final List<Map<String, dynamic>> gridItems = [
-    {'icon': Icons.assignment, 'title': 'Surveys'},
-    {'icon': Icons.bar_chart, 'title': 'Reports'},
-    {'icon': Icons.schedule, 'title': 'Schedule'},
+    {'icon': CupertinoIcons.bag_badge_plus, 'title': 'Surveys'},
+    {'icon': Icons.stacked_bar_chart, 'title': 'Reports'},
+    {'icon': CupertinoIcons.time, 'title': 'Schedule'},
     {'icon': Icons.analytics, 'title': 'Analytics'},
     {'icon': Icons.notifications, 'title': 'Notifications'},
     {'icon': Icons.person, 'title': 'Profile'},
@@ -31,11 +33,14 @@ class RoleBasedGrid extends StatelessWidget {
             children: [
               Container(
                 padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(color: const Color(0x23F44336), borderRadius: BorderRadius.circular(12)),
-                child: Icon(item['icon'], size: 40, color: Colors.red.shade900),
+                decoration: ContainerTheme().ContainerTheme1,
+                child: Icon(item['icon'], size: 40, color: ColorsTheme().iconColor),
               ),
               SizedBox(height: 8),
-              Text(item['title'], style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
+              Text(
+                item['title'],
+                style: TextStyle(fontFamily: 'manrope', fontSize: 14, fontWeight: FontWeight.w600),
+              ),
             ],
           );
         },

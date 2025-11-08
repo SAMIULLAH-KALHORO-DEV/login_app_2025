@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-
+import 'package:login_app_2025/constants/text_theme.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({super.key});
@@ -10,23 +9,24 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       currentIndex: 1,
+      onTap: (value) {
+        print('object');
+      },
 
       items: [
         BottomNavigationBarItem(
-          icon: Icon(CupertinoIcons.bell, size: 30, color: const Color(0x9D000000)),
-          label: '',
+          
+          icon: Icon(CupertinoIcons.add, size: 30, color: ColorsTheme().iconColor),
+          label: 'Add Reports',
         ),
         BottomNavigationBarItem(
-          icon: Icon(CupertinoIcons.bell, size: 30, color: const Color(0x9D000000)),
-          label: '',
+          icon: Icon(CupertinoIcons.chart_bar_alt_fill, size: 30, color: ColorsTheme().iconColor),
+          label: 'View Stats',
         ),
+
         BottomNavigationBarItem(
-          icon: Icon(CupertinoIcons.bell, size: 30, color: const Color(0x9D000000)),
-          label: '',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(CupertinoIcons.bell, size: 30, color: const Color(0x9D000000)),
-          label: '',
+          icon: Icon(CupertinoIcons.text_alignleft, size: 30, color: ColorsTheme().iconColor),
+          label: 'Assign Task',
         ),
       ],
     );
