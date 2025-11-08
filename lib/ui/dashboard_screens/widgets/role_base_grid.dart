@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:login_app_2025/constants/text_theme.dart';
+import 'package:login_app_2025/constants/Theme.dart';
 
 class RoleBasedGrid extends StatelessWidget {
   final List<Map<String, dynamic>> gridItems = [
@@ -33,14 +33,11 @@ class RoleBasedGrid extends StatelessWidget {
             children: [
               Container(
                 padding: EdgeInsets.all(16),
-                decoration: ContainerTheme().ContainerTheme1,
+                decoration: ContainerTheme().containerTheme1,
                 child: Icon(item['icon'], size: 40, color: ColorsTheme().iconColor),
               ),
               SizedBox(height: 8),
-              Text(
-                item['title'],
-                style: TextStyle(fontFamily: 'manrope', fontSize: 14, fontWeight: FontWeight.w600),
-              ),
+              Text(item['title'], style: TextsTheme().heading3sytle),
             ],
           );
         },

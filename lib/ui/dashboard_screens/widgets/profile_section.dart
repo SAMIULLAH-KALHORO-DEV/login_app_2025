@@ -1,15 +1,29 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:login_app_2025/constants/text_theme.dart';
+import 'package:login_app_2025/constants/Theme.dart';
+import 'package:login_app_2025/ui/auth/login_screen.dart';
+import 'package:login_app_2025/utils/utils.dart';
 
-class ProfileSection extends StatelessWidget {
+class ProfileSection extends StatefulWidget {
   const ProfileSection({super.key});
+
+  @override
+  State<ProfileSection> createState() => _ProfileSectionState();
+}
+
+class _ProfileSectionState extends State<ProfileSection> {
+  final auth = FirebaseAuth.instance;
+  final fireStore = FirebaseFirestore.instance.collection('users').snapshots();
+  CollectionReference ref = FirebaseFirestore.instance.collection('users');
+  final editController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(8),
-      decoration: ContainerTheme().ContainerTheme1,
+      decoration: ContainerTheme().containerTheme1,
       child: Column(
         children: [
           Row(
@@ -24,7 +38,8 @@ class ProfileSection extends StatelessWidget {
                     height: 50,
                     width: 50,
                     decoration: BoxDecoration(
-                      color: ColorsTheme().backgroundColor,
+                      border: BoxBorder.all(color: ColorsTheme().borderColor),
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: Icon(CupertinoIcons.person),
@@ -35,17 +50,25 @@ class ProfileSection extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Kashif', style: TextsTheme().heading1sytle),
-                      Text('Admin', style: TextsTheme().heading3sytle),
+                      Text('Branch Manager', style: TextsTheme().heading3sytle),
                     ],
                   ),
                 ],
               ),
 
-              Container(
-                height: 50,
-                width: 50,
-                decoration: BoxDecoration(color: const Color(0x0F000000), borderRadius: BorderRadius.circular(30)),
-                child: Icon(CupertinoIcons.bell, size: 30, color: ColorsTheme().iconColor),
+              IconButton(
+                onPressed: () {
+                  auth
+                      .signOut()
+                      .then((value) {
+                        // ignore: use_build_context_synchronously
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                      })
+                      .onError((error, stackTrace) {
+                        Utils().toastMessage(error.toString());
+                      });
+                },
+                icon: Icon(Icons.logout_outlined, color: ColorsTheme().iconColor),
               ),
             ],
           ),

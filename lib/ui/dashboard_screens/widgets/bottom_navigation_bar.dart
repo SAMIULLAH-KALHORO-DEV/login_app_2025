@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:login_app_2025/constants/text_theme.dart';
+import 'package:login_app_2025/constants/Theme.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({super.key});
