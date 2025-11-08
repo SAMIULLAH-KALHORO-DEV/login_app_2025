@@ -16,7 +16,7 @@ class SplashServices {
     if (user != null) {
       Timer(
         Duration(seconds: 3),
-        () => Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen())),
+        () => Navigator.push(context, MaterialPageRoute(builder: (context) => AdminDashboard())),
       );
     } else {
       Timer(

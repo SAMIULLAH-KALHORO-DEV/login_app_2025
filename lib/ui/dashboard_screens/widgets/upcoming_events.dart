@@ -30,7 +30,7 @@ class UpcomingEvents extends StatelessWidget {
                 Text('10June ', style: TextsTheme().heading1sytle),
                 Text(
                   '10 is the company 20th aniversiry which is very important to all company members',
-                  style: TextsTheme().heading2sytle,
+                  style: TextsTheme().heading3sytle,
                 ),
               ],
             ),

@@ -20,6 +20,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final emailcontroller = TextEditingController();
   final passwordcontroller = TextEditingController();
   final usernamecontroller = TextEditingController();
+  final rolecontroller = TextEditingController();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final DatabaseReference _database = FirebaseDatabase.instance.ref('Users');
@@ -28,6 +29,7 @@ class _SignupScreenState extends State<SignupScreen> {
   void dispose() {
     emailcontroller.dispose();
     passwordcontroller.dispose();
+    rolecontroller.dispose();
     super.dispose();
   }
 
@@ -45,6 +47,7 @@ class _SignupScreenState extends State<SignupScreen> {
         .then((value) async {
           // Save username in Realtime Database
           await _database.child(value.user!.uid).set({
+            'role' : rolecontroller.text.toString(),
             'email': emailcontroller.text.toString(),
             'username': usernamecontroller.text.toString(),
             'uid': value.user!.uid,
@@ -87,9 +90,9 @@ class _SignupScreenState extends State<SignupScreen> {
                     SizedBox(height: 5),
                     TextFormField(
                       keyboardType: TextInputType.text,
-                      controller: usernamecontroller,
+                      controller: rolecontroller,
                       decoration: InputDecoration(
-                        hintText: '',
+                        hintText: 'ie. manager, employyee',
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_app_2025/constants/Theme.dart';
@@ -15,9 +16,26 @@ class ProfileSection extends StatefulWidget {
 
 class _ProfileSectionState extends State<ProfileSection> {
   final auth = FirebaseAuth.instance;
-  final fireStore = FirebaseFirestore.instance.collection('users').snapshots();
-  CollectionReference ref = FirebaseFirestore.instance.collection('users');
+  final refuser = FirebaseDatabase.instance.ref('Users');
   final editController = TextEditingController();
+
+  Future<String> getUsername(String uid) async {
+    final snapshot = await refuser.child(uid).get();
+    if (snapshot.exists) {
+      return snapshot.child('username').value.toString();
+    } else {
+      return 'Unknown';
+    }
+  }
+
+  Future<String> getRole(String uid) async {
+    final snapshot = await refuser.child(uid).get();
+    if (snapshot.exists) {
+      return snapshot.child('role').value.toString();
+    } else {
+      return 'Unknown';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +67,30 @@ class _ProfileSectionState extends State<ProfileSection> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Kashif', style: TextsTheme().heading1sytle),
-                      Text('Branch Manager', style: TextsTheme().heading3sytle),
+                      FutureBuilder<String>(
+                        future: getUsername(FirebaseAuth.instance.currentUser!.uid),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return Text('Loading...', style: TextsTheme().heading2sytle);
+                          } else if (snapshot.hasError) {
+                            return Text('Error', style: TextsTheme().heading2sytle);
+                          } else {
+                            return Text(snapshot.data ?? 'Unknown', style: TextsTheme().heading2sytle);
+                          }
+                        },
+                      ),
+                      FutureBuilder<String>(
+                        future: getRole(FirebaseAuth.instance.currentUser!.uid),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return Text('Loading...', style: TextsTheme().heading3sytle);
+                          } else if (snapshot.hasError) {
+                            return Text('Error', style: TextsTheme().heading3sytle);
+                          } else {
+                            return Text(snapshot.data ?? 'Unknown', style: TextsTheme().heading3sytle);
+                          }
+                        },
+                      ),
                     ],
                   ),
                 ],
