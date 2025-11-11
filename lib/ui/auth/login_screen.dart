@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:login_app_2025/constants/Theme.dart';
+import 'package:login_app_2025/constants/app_assets.dart';
 import 'package:login_app_2025/ui/auth/login_with_phone_number.dart';
 import 'package:login_app_2025/ui/auth/signup_screen.dart';
 import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard.dart';
@@ -63,93 +65,114 @@ class _LoginScreenState extends State<LoginScreen> {
         return true;
       },
       child: Scaffold(
-        appBar: AppBar(automaticallyImplyLeading: false, title: Text('login screen')),
-        body: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Form(
-                key: _formkey,
-                child: Column(
-                  children: [
-                    TextFormField(
-                      keyboardType: TextInputType.emailAddress,
-                      controller: emailcontroller,
-                      decoration: InputDecoration(labelText: 'Email', suffixIcon: Icon(Icons.email)),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter email';
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(height: 20),
-                    TextFormField(
-                      controller: passwordcontroller,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(labelText: 'Password', suffixIcon: Icon(Icons.lock_open)),
-                      obscureText: true,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter password';
-                        }
-                        return null;
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 50),
-              RoundBotton(
-                loading: loading,
-                title: 'Login',
-                height: 50,
-                ontap: () {
-                  if (_formkey.currentState!.validate()) {
-                    // Handle login
-                    login();
-                  }
-                },
-              ),
-              Align(
-                alignment: AlignmentGeometry.bottomRight,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPasswordScreen()));
-                  },
-                  child: Text('Forget Password'),
-                ),
-              ),
-              SizedBox(height: 20),
-              Row(
+        backgroundColor: Colors.white,
+
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: SingleChildScrollView(
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(' Don\'t have an account?'),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen()));
+                  Text('Login', style: TextsTheme().heading1sytle),
+                  SizedBox(height: 20),
+                  Image(image: AssetImage(AppAssets.logo), height: 150, width: 150),
+
+                  Form(
+                    key: _formkey,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          keyboardType: TextInputType.emailAddress,
+                          controller: emailcontroller,
+                          decoration: InputDecoration(
+                            hintText: 'Email',
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter email';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 20),
+                        TextFormField(
+                          controller: passwordcontroller,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            hintText: 'Password',
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
+                            ),
+                          ),
+                          obscureText: true,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter password';
+                            }
+                            return null;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 50),
+                  RoundBotton(
+                    loading: loading,
+                    title: 'Login',
+                    height: 50,
+                    ontap: () {
+                      if (_formkey.currentState!.validate()) {
+                        // Handle login
+                        login();
+                      }
                     },
-                    child: Text('Sign Up'),
+                  ),
+                  Align(
+                    alignment: AlignmentGeometry.bottomRight,
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPasswordScreen()));
+                      },
+                      child: Text('Forget Password'),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(' Don\'t have an account?'),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen()));
+                        },
+                        child: Text('Sign Up'),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 30),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => LoginWithPhoneNumber()));
+                    },
+                    child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: Colors.black),
+                      ),
+                      child: Center(child: Text('Login with Phone number')),
+                    ),
                   ),
                 ],
               ),
-              SizedBox(height: 30),
-              InkWell(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginWithPhoneNumber()));
-                },
-                child: Container(
-                  height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: Colors.black),
-                  ),
-                  child: Center(child: Text('Login with Phone number')),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),
