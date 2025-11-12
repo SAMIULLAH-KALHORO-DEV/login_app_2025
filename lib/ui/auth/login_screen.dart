@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:login_app_2025/constants/Theme.dart';
+import 'package:login_app_2025/constants/app_theme.dart';
 import 'package:login_app_2025/constants/app_assets.dart';
 import 'package:login_app_2025/ui/auth/login_with_phone_number.dart';
 import 'package:login_app_2025/ui/auth/signup_screen.dart';

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login_app_2025/constants/Theme.dart';
-import 'package:login_app_2025/constants/app_assets.dart';
+import 'package:login_app_2025/constants/app_theme.dart';
 
 class UpcomingEvents extends StatelessWidget {
   const UpcomingEvents({super.key});

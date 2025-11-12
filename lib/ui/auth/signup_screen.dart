@@ -1,6 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:login_app_2025/constants/Theme.dart';
+import 'package:login_app_2025/constants/app_theme.dart';
 import 'package:login_app_2025/constants/app_assets.dart';
 import 'package:login_app_2025/ui/auth/login_screen.dart';
 import 'package:login_app_2025/utils/utils.dart';
@@ -50,7 +50,7 @@ class _SignupScreenState extends State<SignupScreen> {
             'role': rolecontroller.text.toString(),
             'email': emailcontroller.text.toString(),
             'username': usernamecontroller.text.toString(),
-            'uid': value.user!.uid,
+            'uid': value.user!.uid, 
           });
 
           setState(() {

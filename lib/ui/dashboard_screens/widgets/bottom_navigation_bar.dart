@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:login_app_2025/constants/Theme.dart';
+import 'package:login_app_2025/constants/app_theme.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({super.key});
@@ -10,7 +10,6 @@ class BottomNavBar extends StatelessWidget {
     return BottomNavigationBar(
       currentIndex: 1,
       onTap: (value) {
-        print('object');
       },
 
       items: [
