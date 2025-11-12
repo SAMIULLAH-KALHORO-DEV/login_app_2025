@@ -1,8 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_app_2025/constants/app_theme.dart';
+import 'package:login_app_2025/ui/quick_access_panel/Surveys/surveys_screen.dart';
 
-class RoleBasedGrid extends StatelessWidget {
+class RoleBasedGrid extends StatefulWidget {
+  RoleBasedGrid({super.key});
+
+  @override
+  State<RoleBasedGrid> createState() => _RoleBasedGridState();
+}
+
+class _RoleBasedGridState extends State<RoleBasedGrid> {
   final List<Map<String, dynamic>> gridItems = [
     {'icon': CupertinoIcons.bag_badge_plus, 'title': 'Surveys'},
     {'icon': Icons.stacked_bar_chart, 'title': 'Reports'},
@@ -11,8 +19,28 @@ class RoleBasedGrid extends StatelessWidget {
     {'icon': Icons.notifications, 'title': 'Notifications'},
     {'icon': Icons.person, 'title': 'Profile'},
   ];
-
-   RoleBasedGrid({super.key});
+  void _onItemTap(String title) {
+    switch (title) {
+      case 'Surveys':
+        Navigator.push(context, MaterialPageRoute(builder: (_) => SurveyScreen()));
+        break;
+      case 'Reports':
+        Navigator.push(context, MaterialPageRoute(builder: (_) => SurveyScreen()));
+        break;
+      case 'Schedule':
+        Navigator.push(context, MaterialPageRoute(builder: (_) => SurveyScreen()));
+        break;
+      case 'Analytics':
+        Navigator.push(context, MaterialPageRoute(builder: (_) => SurveyScreen()));
+        break;
+      case 'Notifcations':
+        Navigator.push(context, MaterialPageRoute(builder: (_) => SurveyScreen()));
+        break;
+      case 'Profile':
+        Navigator.push(context, MaterialPageRoute(builder: (_) => SurveyScreen()));
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,17 +58,21 @@ class RoleBasedGrid extends StatelessWidget {
         itemCount: gridItems.length,
         itemBuilder: (context, index) {
           final item = gridItems[index];
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                padding: EdgeInsets.all(16),
-                decoration: ContainerTheme().containerTheme1,
-                child: Icon(item['icon'], size: 40, color: ColorsTheme().iconColor),
-              ),
-              SizedBox(height: 8),
-              Text(item['title'], style: TextsTheme().heading3sytle),
-            ],
+          return InkWell(
+            borderRadius: BorderRadius.circular(20),
+            onTap: () => _onItemTap(item['title']),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: ContainerTheme().containerTheme1,
+                  child: Icon(item['icon'], size: 40, color: ColorsTheme().iconColor),
+                ),
+                SizedBox(height: 8),
+                Text(item['title'], style: TextsTheme().heading3sytle),
+              ],
+            ),
           );
         },
       ),
