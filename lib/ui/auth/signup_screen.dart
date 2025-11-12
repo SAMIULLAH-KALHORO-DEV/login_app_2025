@@ -50,7 +50,7 @@ class _SignupScreenState extends State<SignupScreen> {
             'role': rolecontroller.text.toString(),
             'email': emailcontroller.text.toString(),
             'username': usernamecontroller.text.toString(),
-            'uid': value.user!.uid, 
+            'uid': value.user!.uid,
           });
 
           setState(() {

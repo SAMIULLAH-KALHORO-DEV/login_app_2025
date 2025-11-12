@@ -4,7 +4,7 @@ import 'package:login_app_2025/constants/app_theme.dart';
 import 'package:login_app_2025/ui/quick_access_panel/Surveys/surveys_screen.dart';
 
 class RoleBasedGrid extends StatefulWidget {
-  RoleBasedGrid({super.key});
+  const RoleBasedGrid({super.key});
 
   @override
   State<RoleBasedGrid> createState() => _RoleBasedGridState();

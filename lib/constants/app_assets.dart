@@ -11,6 +11,7 @@ class AppAssets {
 
   // Images
   static const String logo = 'assets/images/company_logo.png';
+  static const String logoWithoutText = 'assets/images/company_logo_without_text.png';
   static const String upComingEvent = 'assets/images/upcoming_events.jpg';
 
   //
