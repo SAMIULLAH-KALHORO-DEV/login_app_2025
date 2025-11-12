@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login_app_2025/constants/app_theme.dart';
+import 'package:login_app_2025/ui/dashboard_screens/add_reports/reports_screen.dart';
 import 'package:login_app_2025/ui/dashboard_screens/widgets/bottom_navigation_bar.dart';
 import 'package:login_app_2025/ui/dashboard_screens/widgets/profile_section.dart';
 import 'package:login_app_2025/ui/dashboard_screens/widgets/role_base_grid.dart';
@@ -11,6 +12,8 @@ class AdminDashboard extends StatefulWidget {
   @override
   State<AdminDashboard> createState() => _AdminDashboardState();
 }
+
+int _selectedIndex = 0;
 
 class _AdminDashboardState extends State<AdminDashboard> {
   @override
@@ -37,7 +40,28 @@ class _AdminDashboardState extends State<AdminDashboard> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavBar(),
+      bottomNavigationBar: BottomNavBar(
+        currentIndex: _selectedIndex,
+        onItemTapped: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+          switch (index) {
+            case 0:
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const AdminDashboard()));
+              break;
+            case 1:
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const ReportsScreen()));
+              break;
+            case 2:
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const ReportsScreen()));
+              break;
+            case 3:
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const ReportsScreen()));
+              break;
+          }
+        },
+      ),
     );
   }
 }

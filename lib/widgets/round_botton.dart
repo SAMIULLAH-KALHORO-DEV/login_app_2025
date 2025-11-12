@@ -19,7 +19,7 @@ class RoundBotton extends StatelessWidget {
 
         child: Center(
           child: loading
-              ? CircularProgressIndicator(strokeWidth: 3, color: Colors.white)
+              ? CircularProgressIndicator(strokeWidth: 3, color: ColorsTheme().borderColor)
               : Text(title, style: TextsTheme().heading2sytle),
         ),
       ),
