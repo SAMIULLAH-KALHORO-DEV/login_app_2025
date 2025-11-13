@@ -8,7 +8,7 @@ class SurveyForm1Texts {
   static const projectSiteName = '  پروجیکٹ / سائٹ کا نام';
   static const reportType = 'رپورٹ کی قسم';
   static const reportObservation = 'مشاہدے کی تفصیل';
-  static const possibilities = 'ممکنہ خطرہ / نتیجہ \b اگر یہ مسئلہ رپورٹ نہ کیا جاتا تو کیا ہو سکتا تھا؟ ';
+  static const possibilities = 'ممکنہ خطرہ / نتیجہ اگر یہ مسئلہ رپورٹ نہ کیا جاتا تو کیا ہو سکتا تھا؟ ';
   static const quickAction =
       'فوری طور پر کی گئی کارروائی : بیان کریں کہ آپ نے موقع پر کیا اقدام کیا (اگر کوئی کیا ہو) تاکہ خطرے کو کم یا ختم کیا جا سکے۔';
   static const actionReview = 'آپ کی کیا رائے ہے کہ مستقبل میں اس مسئلے کو دوبارہ پیش آنے سے کیسے روکا جا سکتا ہے؟ ';

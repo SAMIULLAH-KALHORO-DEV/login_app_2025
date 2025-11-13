@@ -1,3 +1,4 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:login_app_2025/constants/app_assets.dart';
 import 'package:login_app_2025/constants/app_theme.dart';
@@ -44,36 +45,57 @@ class _SurveyForm1State extends State<SurveyForm1> {
                   ],
                 ),
                 SizedBox(height: 10),
-                Text(textAlign: TextAlign.right, SurveyForm1Texts.formTexttitle, style: TextsTheme().heading1sytle),
+                Text(textAlign: TextAlign.right, SurveyForm1Texts.formTexttitle, style: TextsTheme().urduHeading1sytle),
+                SizedBox(height: 20),
                 Text(
                   textAlign: TextAlign.right,
                   SurveyForm1Texts.formTextTitleDescription,
-                  style: TextsTheme().heading2sytle,
+                  style: TextsTheme().urduHeading2sytle,
                 ),
-                CustomTextField(
-                  hintText: '',
-                  child: DropdownMenuItem(child: Text('data')),
+                SizedBox(height: 10),
+
+                CustomTextField(hintText: ''),
+                SizedBox(height: 10),
+                Text(textAlign: TextAlign.right, SurveyForm1Texts.reportername, style: TextsTheme().urduHeading2sytle),
+                SizedBox(height: 10),
+                CustomTextField(hintText: ''),
+                SizedBox(height: 10),
+                Text(textAlign: TextAlign.right, SurveyForm1Texts.date, style: TextsTheme().urduHeading2sytle),
+                SizedBox(height: 10),
+                CustomTextField(hintText: ''),
+                SizedBox(height: 10),
+
+                Text(
+                  textAlign: TextAlign.right,
+                  SurveyForm1Texts.projectSiteName,
+                  style: TextsTheme().urduHeading2sytle,
                 ),
-                Text(textAlign: TextAlign.right, SurveyForm1Texts.reportername, style: TextsTheme().heading2sytle),
+                SizedBox(height: 10),
                 CustomTextField(hintText: ''),
-               
+                SizedBox(height: 10),
 
-                Text(textAlign: TextAlign.right, SurveyForm1Texts.date, style: TextsTheme().heading2sytle),
+                Text(textAlign: TextAlign.right, SurveyForm1Texts.reportType, style: TextsTheme().urduHeading2sytle),
+                SizedBox(height: 10),
                 CustomTextField(hintText: ''),
+                SizedBox(height: 10),
 
-                Text(textAlign: TextAlign.right, SurveyForm1Texts.projectSiteName, style: TextsTheme().heading2sytle),
+                Text(
+                  textAlign: TextAlign.right,
+                  SurveyForm1Texts.reportObservation,
+                  style: TextsTheme().urduHeading2sytle,
+                ),
+                SizedBox(height: 10),
                 CustomTextField(hintText: ''),
+                SizedBox(height: 10),
 
-                Text(textAlign: TextAlign.right, SurveyForm1Texts.reportType, style: TextsTheme().heading2sytle),
+                Text(textAlign: TextAlign.right, SurveyForm1Texts.possibilities, style: TextsTheme().urduHeading2sytle),
+                SizedBox(height: 10),
                 CustomTextField(hintText: ''),
+                SizedBox(height: 10),
 
-                Text(textAlign: TextAlign.right, SurveyForm1Texts.reportObservation, style: TextsTheme().heading2sytle),
-                CustomTextField(hintText: ''),
-
-                Text(textAlign: TextAlign.right, SurveyForm1Texts.possibilities, style: TextsTheme().heading2sytle),
-                CustomTextField(hintText: ''),
-
-                Text(textAlign: TextAlign.right, SurveyForm1Texts.actionReview, style: TextsTheme().heading2sytle),
+                Text(textAlign: TextAlign.right, SurveyForm1Texts.actionReview, style: TextsTheme().urduHeading2sytle),
+                SizedBox(height: 10),
+                SizedBox(height: 10),
                 CustomTextField(hintText: ''),
                 SizedBox(height: 10),
                 RoundBotton(title: 'submit', height: 50, ontap: () {}),

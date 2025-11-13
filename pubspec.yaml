@@ -42,6 +42,7 @@ dependencies:
   flutter_contacts: ^1.1.9+2
   image_picker: ^1.2.0
   calendar_date_picker2: ^2.0.1
+  dropdown_search: ^6.0.2
 
 dev_dependencies:
   flutter_test:
@@ -81,6 +82,9 @@ flutter:
     - family: manrope
       fonts:
         - asset: assets/fonts/manrope/Manrope-Regular.ttf
+    - family: urdu_font
+      fonts:
+        - asset: assets/fonts/urdu_font/urdu_font.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

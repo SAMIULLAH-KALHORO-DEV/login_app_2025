@@ -23,6 +23,8 @@ class AppAssets {
   static const String manropeLight = 'assets/fonts/manrope/Manrope-Light.ttf';
   static const String manropeMedium = 'assets/fonts/manrope/Manrope-Medium.ttf';
   static const String manropeRegular = 'assets/fonts/manrope/Manrope-Regular.ttf';
+  static const String urduFont = 'assets/fonts/urdu_font/urdu_font.ttf';
+
 
   // Colors
 

@@ -25,6 +25,20 @@ class TextsTheme {
     color: Color(0xFF075B5E),
     fontWeight: FontWeight.bold,
   );
+
+  // Urdu Text font style
+  final urduHeading1sytle = TextStyle(
+    fontFamily: 'urdu_font',
+    fontSize: 20,
+    color: const Color(0xFFD65757),
+    fontWeight: FontWeight.bold,
+  );
+  final urduHeading2sytle = TextStyle(
+    fontFamily: 'urdu_font',
+    fontSize: 15,
+    color: Colors.black,
+    fontWeight: FontWeight.bold,
+  );
 }
 
 class ColorsTheme {
@@ -79,17 +93,16 @@ class TextFieldBorder extends StatelessWidget {
 }
 
 class TextFieldOutlineborder {
-    final textFieldBorder = InputDecoration(
-      hintText: '',
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
-      ),
+  final textFieldBorder = InputDecoration(
+    hintText: '',
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
+    ),
 
-      suffixIcon: Icon(Icons.person),
-    );
-  }
-
+    suffixIcon: Icon(Icons.person),
+  );
+}
 
 class ContainerTheme2 extends StatelessWidget {
   final DecorationImage? image;
