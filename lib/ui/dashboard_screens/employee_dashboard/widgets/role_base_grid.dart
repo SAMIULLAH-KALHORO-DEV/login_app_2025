@@ -1,16 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_app_2025/constants/app_theme.dart';
+import 'package:login_app_2025/ui/quick_access_panel/Surveys/survey_forms/submit_survey_lists/submitted_survey_lists.dart';
+import 'package:login_app_2025/ui/quick_access_panel/Surveys/survey_forms/survey_form1.dart';
 import 'package:login_app_2025/ui/quick_access_panel/Surveys/surveys_screen.dart';
 
-class RoleBasedGrid extends StatefulWidget {
-  const RoleBasedGrid({super.key});
+class RoleBasedGridEmployee extends StatefulWidget {
+  const RoleBasedGridEmployee({super.key});
 
   @override
-  State<RoleBasedGrid> createState() => _RoleBasedGridState();
+  State<RoleBasedGridEmployee> createState() => _RoleBasedGridEmployeeState();
 }
 
-class _RoleBasedGridState extends State<RoleBasedGrid> {
+class _RoleBasedGridEmployeeState extends State<RoleBasedGridEmployee> {
   final List<Map<String, dynamic>> gridItems = [
     {'icon': CupertinoIcons.bag_badge_plus, 'title': 'Surveys'},
     {'icon': Icons.stacked_bar_chart, 'title': 'Reports'},
@@ -21,23 +23,23 @@ class _RoleBasedGridState extends State<RoleBasedGrid> {
   ];
   void _onItemTap(String title) {
     switch (title) {
-      case 'Surveys':
-        Navigator.push(context, MaterialPageRoute(builder: (_) => SurveyScreen()));
+      case 'Today\'s survey':
+        Navigator.push(context, MaterialPageRoute(builder: (_) => SurveyForm1()));
         break;
       case 'Reports':
-        Navigator.push(context, MaterialPageRoute(builder: (_) => SurveyScreen()));
+        Navigator.push(context, MaterialPageRoute(builder: (_) => SurveyListPage()));
         break;
       case 'Schedule':
-        Navigator.push(context, MaterialPageRoute(builder: (_) => SurveyScreen()));
+        Navigator.push(context, MaterialPageRoute(builder: (_) => SurveyListPage()));
         break;
       case 'Analytics':
-        Navigator.push(context, MaterialPageRoute(builder: (_) => SurveyScreen()));
+        Navigator.push(context, MaterialPageRoute(builder: (_) => SurveyListPage()));
         break;
       case 'Notifcations':
-        Navigator.push(context, MaterialPageRoute(builder: (_) => SurveyScreen()));
+        Navigator.push(context, MaterialPageRoute(builder: (_) => SurveyListPage()));
         break;
       case 'Profile':
-        Navigator.push(context, MaterialPageRoute(builder: (_) => SurveyScreen()));
+        Navigator.push(context, MaterialPageRoute(builder: (_) => SurveyListPage()));
         break;
     }
   }

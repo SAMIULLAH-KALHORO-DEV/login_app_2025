@@ -5,7 +5,7 @@ import 'package:login_app_2025/constants/app_theme.dart';
 import 'package:login_app_2025/constants/app_assets.dart';
 import 'package:login_app_2025/ui/auth/login_with_phone_number.dart';
 import 'package:login_app_2025/ui/auth/signup_screen.dart';
-import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard.dart';
+import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/admin_dashboard.dart';
 import 'package:login_app_2025/ui/forget_password_screen.dart';
 import 'package:login_app_2025/utils/utils.dart';
 import 'package:login_app_2025/widgets/round_botton.dart';

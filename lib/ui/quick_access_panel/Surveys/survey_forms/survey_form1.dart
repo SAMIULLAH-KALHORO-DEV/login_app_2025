@@ -1,9 +1,10 @@
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:login_app_2025/constants/app_assets.dart';
 import 'package:login_app_2025/constants/app_theme.dart';
 import 'package:login_app_2025/constants/survey_forms_texts/survey_form1_texts.dart';
-import 'package:login_app_2025/ui/quick_access_panel/Surveys/survey_forms.dart/widgets/custom_text_field_widget.dart';
+import 'package:login_app_2025/ui/quick_access_panel/Surveys/survey_forms/widgets/custom_text_field_widget.dart';
 import 'package:login_app_2025/widgets/round_botton.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 
@@ -14,9 +15,16 @@ class SurveyForm1 extends StatefulWidget {
   State<SurveyForm1> createState() => _SurveyForm1State();
 }
 
-final dateController = TextEditingController();
+final TextEditingController reporterNameController = TextEditingController();
+final TextEditingController dateController = TextEditingController();
+final TextEditingController projectSiteController = TextEditingController();
+final TextEditingController reportTypeController = TextEditingController();
+final TextEditingController reportObservationController = TextEditingController();
+final TextEditingController possibilitiesController = TextEditingController();
+final TextEditingController actionReviewController = TextEditingController();
 
 class _SurveyForm1State extends State<SurveyForm1> {
+  final DatabaseReference ref = FirebaseDatabase.instance.ref('SurveyForms');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,17 +60,15 @@ class _SurveyForm1State extends State<SurveyForm1> {
                   SurveyForm1Texts.formTextTitleDescription,
                   style: TextsTheme().urduHeading2sytle,
                 ),
-                SizedBox(height: 10),
 
-                CustomTextField(hintText: ''),
-                SizedBox(height: 10),
+                SizedBox(height: 20),
                 Text(textAlign: TextAlign.right, SurveyForm1Texts.reportername, style: TextsTheme().urduHeading2sytle),
                 SizedBox(height: 10),
-                CustomTextField(hintText: ''),
+                CustomTextField(controller: reporterNameController, hintText: ''),
                 SizedBox(height: 10),
                 Text(textAlign: TextAlign.right, SurveyForm1Texts.date, style: TextsTheme().urduHeading2sytle),
                 SizedBox(height: 10),
-                CustomTextField(hintText: ''),
+                CustomTextField(controller: dateController, hintText: ''),
                 SizedBox(height: 10),
 
                 Text(
@@ -71,12 +77,12 @@ class _SurveyForm1State extends State<SurveyForm1> {
                   style: TextsTheme().urduHeading2sytle,
                 ),
                 SizedBox(height: 10),
-                CustomTextField(hintText: ''),
+                CustomTextField(controller: projectSiteController, hintText: ''),
                 SizedBox(height: 10),
 
                 Text(textAlign: TextAlign.right, SurveyForm1Texts.reportType, style: TextsTheme().urduHeading2sytle),
                 SizedBox(height: 10),
-                CustomTextField(hintText: ''),
+                CustomTextField(controller: reportTypeController, hintText: ''),
                 SizedBox(height: 10),
 
                 Text(
@@ -85,20 +91,46 @@ class _SurveyForm1State extends State<SurveyForm1> {
                   style: TextsTheme().urduHeading2sytle,
                 ),
                 SizedBox(height: 10),
-                CustomTextField(hintText: ''),
+                CustomTextField(controller: reportObservationController, hintText: ''),
                 SizedBox(height: 10),
 
                 Text(textAlign: TextAlign.right, SurveyForm1Texts.possibilities, style: TextsTheme().urduHeading2sytle),
                 SizedBox(height: 10),
-                CustomTextField(hintText: ''),
+                CustomTextField(controller: possibilitiesController, hintText: ''),
                 SizedBox(height: 10),
 
                 Text(textAlign: TextAlign.right, SurveyForm1Texts.actionReview, style: TextsTheme().urduHeading2sytle),
                 SizedBox(height: 10),
                 SizedBox(height: 10),
-                CustomTextField(hintText: ''),
+                CustomTextField(controller: actionReviewController, hintText: ''),
                 SizedBox(height: 10),
-                RoundBotton(title: 'submit', height: 50, ontap: () {}),
+                RoundBotton(
+                  title: 'submit',
+                  height: 50,
+                  ontap: () async {
+                    await FirebaseDatabase.instance.ref('SurveyForms').push().set({
+                      'reporterName': reporterNameController.text.trim(),
+                      'date': dateController.text.trim(),
+                      'projectSite': projectSiteController.text.trim(),
+                      'reportType': reportTypeController.text.trim(),
+                      'reportObservation': reportObservationController.text.trim(),
+                      'possibilities': possibilitiesController.text.trim(),
+                      'actionReview': actionReviewController.text.trim(),
+                      'timestamp': DateTime.now().toIso8601String(),
+                    });
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text('Suervy submitted Successfully!')));
+                    // Optionally clear all fields
+                    reporterNameController.clear();
+                    dateController.clear();
+                    projectSiteController.clear();
+                    reportTypeController.clear();
+                    reportObservationController.clear();
+                    possibilitiesController.clear();
+                    actionReviewController.clear();
+                  },
+                ),
                 SizedBox(height: 30),
               ],
             ),
