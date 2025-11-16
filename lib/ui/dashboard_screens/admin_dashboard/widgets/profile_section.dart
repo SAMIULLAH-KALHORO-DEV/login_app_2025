@@ -1,5 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_app_2025/constants/app_theme.dart';
@@ -15,22 +15,23 @@ class ProfileSection extends StatefulWidget {
 
 class _ProfileSectionState extends State<ProfileSection> {
   final auth = FirebaseAuth.instance;
-  final refuser = FirebaseDatabase.instance.ref('Users');
+  final refuser = FirebaseFirestore.instance.collection('Users');
+
   final editController = TextEditingController();
 
   Future<String> getUsername(String uid) async {
-    final snapshot = await refuser.child(uid).get();
+    final snapshot = await refuser.doc(uid).get();
     if (snapshot.exists) {
-      return snapshot.child('username').value.toString();
+      return snapshot.get('username').toString();
     } else {
       return 'Unknown';
     }
   }
 
   Future<String> getRole(String uid) async {
-    final snapshot = await refuser.child(uid).get();
+    final snapshot = await refuser.doc(uid).get();
     if (snapshot.exists) {
-      return snapshot.child('role').value.toString();
+      return snapshot.get('role').toString();
     } else {
       return 'Unknown';
     }
@@ -100,8 +101,13 @@ class _ProfileSectionState extends State<ProfileSection> {
                   auth
                       .signOut()
                       .then((value) {
-                        // ignore: use_build_context_synchronously
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                        // 🚨 FIXED: Use pushAndRemoveUntil to clear the navigation stack
+                        // This ensures a clean slate when the next user logs in.
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginScreen()),
+                          (Route<dynamic> route) => false, // Prevents navigating back to dashboard
+                        );
                       })
                       .onError((error, stackTrace) {
                         Utils().toastMessage(error.toString());

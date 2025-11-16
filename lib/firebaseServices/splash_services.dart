@@ -1,3 +1,5 @@
+// The logic in this file is acceptable, provided the Sign-Out function is fixed.
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,6 +14,7 @@ class SplashServices {
     final user = auth.currentUser;
 
     if (user != null) {
+      // Fetch role from Realtime Database using the current user's UID
       DatabaseReference ref = FirebaseDatabase.instance.ref("Users/${user.uid}/role");
 
       ref
@@ -19,24 +22,27 @@ class SplashServices {
           .then((snapshot) {
             String role = snapshot.value.toString();
 
+            // Wait 3 seconds (assuming this is a visual delay for the splash screen)
             Timer(Duration(seconds: 3), () {
               if (role == 'admin') {
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AdminDashboard()));
-              } else if (role == 'employee') {
+              } else if (role == 'manager') {
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => EmployeeDashboard()));
               } else {
+                // Should redirect to login if role is missing/corrupt
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
               }
             });
           })
           .catchError((e) {
-            // fallback if role not found
+            // Handle error during role fetch
             Timer(
               Duration(seconds: 3),
               () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen())),
             );
           });
     } else {
+      // No user is logged in, proceed to Login Screen
       Timer(
         Duration(seconds: 3),
         () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen())),

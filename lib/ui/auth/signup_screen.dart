@@ -1,4 +1,4 @@
-import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:login_app_2025/constants/app_theme.dart';
 import 'package:login_app_2025/constants/app_assets.dart';
@@ -23,7 +23,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final rolecontroller = TextEditingController();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final DatabaseReference _database = FirebaseDatabase.instance.ref('Users');
+  final CollectionReference _usersCollection = FirebaseFirestore.instance.collection('Users');
 
   @override
   void dispose() {
@@ -44,9 +44,16 @@ class _SignupScreenState extends State<SignupScreen> {
           email: emailcontroller.text.toString(),
           password: passwordcontroller.text.toString(),
         )
+        // .then((value) async {
+        // Save username in Realtime Database
+        //   await _database.child(value.user!.uid).set({
+        //     'role': rolecontroller.text.toString(),
+        //     'email': emailcontroller.text.toString(),
+        //     'username': usernamecontroller.text.toString(),
+        //     'uid': value.user!.uid,
+        //   });
         .then((value) async {
-          // Save username in Realtime Database
-          await _database.child(value.user!.uid).set({
+          await _usersCollection.doc(value.user!.uid).set({
             'role': rolecontroller.text.toString(),
             'email': emailcontroller.text.toString(),
             'username': usernamecontroller.text.toString(),
@@ -58,8 +65,7 @@ class _SignupScreenState extends State<SignupScreen> {
           });
           Utils().toastMessage('Account created successfully');
         })
-        // ignore: avoid_types_as_parameter_names
-        .onError((error, stackTrace) {
+        .catchError((error, stackTrace) {
           Utils().toastMessage(error.toString());
           setState(() {
             loading = false;

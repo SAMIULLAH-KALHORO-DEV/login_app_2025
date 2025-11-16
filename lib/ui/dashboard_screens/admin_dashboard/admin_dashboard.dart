@@ -13,13 +13,13 @@ class AdminDashboard extends StatefulWidget {
   State<AdminDashboard> createState() => _AdminDashboardState();
 }
 
-int _selectedIndex = 0;
-
 class _AdminDashboardState extends State<AdminDashboard> {
+  int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      // this is change
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(10),
@@ -31,7 +31,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 SizedBox(height: 30),
                 Text('Quick Access Panel', style: TextsTheme().heading1sytle),
                 SizedBox(height: 30),
-                RoleBasedGrid(),
+                AdminRoleBasedGrid(),
                 Text('Events', style: TextsTheme().heading1sytle),
                 SizedBox(height: 30),
                 UpcomingEvents(),
@@ -40,28 +40,22 @@ class _AdminDashboardState extends State<AdminDashboard> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavBar(
-        currentIndex: _selectedIndex,
-        onItemTapped: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-          switch (index) {
-            case 0:
-              Navigator.push(context, MaterialPageRoute(builder: (_) => const AdminDashboard()));
-              break;
-            case 1:
-              Navigator.push(context, MaterialPageRoute(builder: (_) => const SurveyListPage()));
-              break;
-            case 2:
-              Navigator.push(context, MaterialPageRoute(builder: (_) => const SurveyListPage()));
-              break;
-            case 3:
-              Navigator.push(context, MaterialPageRoute(builder: (_) => const SurveyListPage()));
-              break;
-          }
-        },
-      ),
+      // bottomNavigationBar: BottomNavBar(
+      //   currentIndex: _selectedIndex,
+      //   onItemTapped: (index) {
+      //     setState(() {
+      //       _selectedIndex = index;
+      //     });
+
+      //     switch (index) {
+      //       case 1:
+      //       case 2:
+      //       case 3:
+      //         Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const SubmittedSurveyList()));
+      //         break;
+      //     }
+      //   },
+      // ),
     );
   }
 }

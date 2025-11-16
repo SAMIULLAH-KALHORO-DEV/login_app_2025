@@ -1,4 +1,4 @@
-import 'package:dropdown_search/dropdown_search.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:login_app_2025/constants/app_assets.dart';
@@ -6,7 +6,6 @@ import 'package:login_app_2025/constants/app_theme.dart';
 import 'package:login_app_2025/constants/survey_forms_texts/survey_form1_texts.dart';
 import 'package:login_app_2025/ui/quick_access_panel/Surveys/survey_forms/widgets/custom_text_field_widget.dart';
 import 'package:login_app_2025/widgets/round_botton.dart';
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 
 class SurveyForm1 extends StatefulWidget {
   const SurveyForm1({super.key});
@@ -24,7 +23,40 @@ final TextEditingController possibilitiesController = TextEditingController();
 final TextEditingController actionReviewController = TextEditingController();
 
 class _SurveyForm1State extends State<SurveyForm1> {
+  final CollectionReference surveyCollection = FirebaseFirestore.instance.collection('SurveyForms');
   final DatabaseReference ref = FirebaseDatabase.instance.ref('SurveyForms');
+
+  // future
+  void _submitSurvey() async {
+    try {
+      await surveyCollection.add({
+        'reporterName': reporterNameController.text.trim(),
+        'date': dateController.text.trim(),
+        'projectSite': projectSiteController.text.trim(),
+        'reportType': reportTypeController.text.trim(),
+        'reportObservation': reportObservationController.text.trim(),
+        'possibilities': possibilitiesController.text.trim(),
+        'actionReview': actionReviewController.text.trim(),
+        'timestamp': DateTime.now().toIso8601String(),
+      });
+
+      // clear all fields
+      reporterNameController.clear();
+      dateController.clear();
+      projectSiteController.clear();
+      reportTypeController.clear();
+      reportObservationController.clear();
+      possibilitiesController.clear();
+      actionReviewController.clear();
+
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Survey submitted successfully!')));
+    } catch (e) {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error submitting survey: $e')));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +100,31 @@ class _SurveyForm1State extends State<SurveyForm1> {
                 SizedBox(height: 10),
                 Text(textAlign: TextAlign.right, SurveyForm1Texts.date, style: TextsTheme().urduHeading2sytle),
                 SizedBox(height: 10),
-                CustomTextField(controller: dateController, hintText: ''),
+TextFormField(
+                  controller: dateController,
+                  readOnly: true,
+                  decoration: InputDecoration(
+                    hintText: 'Select Date',
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                    suffixIcon: Icon(Icons.calendar_today),
+                  ),
+                  onTap: () async {
+                    DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2100),
+                    );
+
+                    if (pickedDate != null) {
+                      String formattedDate =
+                          "${pickedDate.year}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
+                      setState(() {
+                        dateController.text = formattedDate;
+                      });
+                    }
+                  },
+                ),
                 SizedBox(height: 10),
 
                 Text(
@@ -107,29 +163,7 @@ class _SurveyForm1State extends State<SurveyForm1> {
                 RoundBotton(
                   title: 'submit',
                   height: 50,
-                  ontap: () async {
-                    await FirebaseDatabase.instance.ref('SurveyForms').push().set({
-                      'reporterName': reporterNameController.text.trim(),
-                      'date': dateController.text.trim(),
-                      'projectSite': projectSiteController.text.trim(),
-                      'reportType': reportTypeController.text.trim(),
-                      'reportObservation': reportObservationController.text.trim(),
-                      'possibilities': possibilitiesController.text.trim(),
-                      'actionReview': actionReviewController.text.trim(),
-                      'timestamp': DateTime.now().toIso8601String(),
-                    });
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(SnackBar(content: Text('Suervy submitted Successfully!')));
-                    // Optionally clear all fields
-                    reporterNameController.clear();
-                    dateController.clear();
-                    projectSiteController.clear();
-                    reportTypeController.clear();
-                    reportObservationController.clear();
-                    possibilitiesController.clear();
-                    actionReviewController.clear();
-                  },
+                  ontap: _submitSurvey
                 ),
                 SizedBox(height: 30),
               ],

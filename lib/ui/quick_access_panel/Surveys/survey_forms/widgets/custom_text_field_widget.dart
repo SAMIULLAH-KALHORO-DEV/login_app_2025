@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:login_app_2025/constants/app_theme.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 
@@ -31,6 +30,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: TextStyle(fontFamily: 'urdu_font'),
       textDirection: TextDirection.rtl,
       controller: widget.controller,
       readOnly: widget.isDatePicker, // only read-only if date picker

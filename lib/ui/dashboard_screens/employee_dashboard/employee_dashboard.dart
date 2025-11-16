@@ -14,9 +14,9 @@ class EmployeeDashboard extends StatefulWidget {
   State<EmployeeDashboard> createState() => _EmployeeDashboardState();
 }
 
-int _selectedIndex = 0;
 
 class _EmployeeDashboardState extends State<EmployeeDashboard> {
+int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,10 +30,10 @@ class _EmployeeDashboardState extends State<EmployeeDashboard> {
               children: [
                 ProfileSectionEmpolyee(),
                 SizedBox(height: 30),
-                Text('Quick Access Panel', style: TextsTheme().heading1sytle),
+                Text('Quick Access View', style: TextsTheme().heading1sytle),
                 SizedBox(height: 30),
-                RoleBasedGridEmployee(),
-                Text('Events', style: TextsTheme().heading1sytle),
+                EmployeeRoleBasedGrid(),
+                Text('UpComing Events', style: TextsTheme().heading1sytle),
                 SizedBox(height: 30),
                 UpcomingEvents(),
               ],
@@ -41,28 +41,28 @@ class _EmployeeDashboardState extends State<EmployeeDashboard> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavBarEmployee(
-        currentIndex: _selectedIndex,
-        onItemTapped: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-          switch (index) {
-            case 0:
-              Navigator.push(context, MaterialPageRoute(builder: (_) => const EmployeeDashboard()));
-              break;
-            case 1:
-              Navigator.push(context, MaterialPageRoute(builder: (_) => const SurveyListPage()));
-              break;
-            case 2:
-              Navigator.push(context, MaterialPageRoute(builder: (_) => const SurveyListPage()));
-              break;
-            case 3:
-              Navigator.push(context, MaterialPageRoute(builder: (_) => const SurveyListPage()));
-              break;
-          }
-        },
-      ),
+      // bottomNavigationBar: BottomNavBarEmployee(
+      //   currentIndex: _selectedIndex,
+      //   onItemTapped: (index) {
+      //     setState(() {
+      //       _selectedIndex = index;
+      //     });
+      //     switch (index) {
+      //       case 0:
+      //         Navigator.push(context, MaterialPageRoute(builder: (_) => const EmployeeDashboard()));
+      //         break;
+      //       case 1:
+      //         Navigator.push(context, MaterialPageRoute(builder: (_) => const SubmittedSurveyList()));
+      //         break;
+      //       case 2:
+      //         Navigator.push(context, MaterialPageRoute(builder: (_) => const SubmittedSurveyList()));
+      //         break;
+      //       case 3:
+      //         Navigator.push(context, MaterialPageRoute(builder: (_) => const SubmittedSurveyList()));
+      //         break;
+      //     }
+      //   },
+      // ),
     );
   }
 }

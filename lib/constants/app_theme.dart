@@ -28,7 +28,6 @@ class TextsTheme {
 
   // Urdu Text font style
   final urduHeading1sytle = TextStyle(
-    
     fontFamily: 'urdu_font',
     fontSize: 20,
     color: const Color(0xFFD65757),

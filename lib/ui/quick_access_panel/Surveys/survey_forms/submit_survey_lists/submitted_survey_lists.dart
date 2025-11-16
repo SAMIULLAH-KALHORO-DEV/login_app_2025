@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -5,20 +6,35 @@ import 'package:login_app_2025/constants/app_theme.dart';
 import 'package:login_app_2025/ui/quick_access_panel/Surveys/survey_forms/submit_survey_lists/submitted_survey_details.dart';
 // make this file next
 
-class SurveyListPage extends StatefulWidget {
-  const SurveyListPage({super.key});
+class SubmittedSurveyList extends StatefulWidget {
+  const SubmittedSurveyList({super.key});
 
   @override
-  State<SurveyListPage> createState() => _SurveyListPageState();
+  State<SubmittedSurveyList> createState() => _SubmittedSurveyListState();
 }
 
-class _SurveyListPageState extends State<SurveyListPage> {
+class _SubmittedSurveyListState extends State<SubmittedSurveyList> {
   final DatabaseReference ref = FirebaseDatabase.instance.ref('SurveyForms');
-  final refuser = FirebaseDatabase.instance.ref('Users');
+  final CollectionReference surveyCollection = FirebaseFirestore.instance.collection('SurveyForms');
+  // final refuser = FirebaseDatabase.instance.ref('Users');
+
+  // Future<String> getuUsername(String uid) async {
+  //   final snapshot = await refuser.child(uid).get();
+  //   if (snapshot.exists) {
+  //     return snapshot.child('username').value.toString();
+  //   } else {
+  //     return 'Unknown';
+  //   }
+  // }
+
   Future<String> getUsername(String uid) async {
-    final snapshot = await refuser.child(uid).get();
-    if (snapshot.exists) {
-      return snapshot.child('username').value.toString();
+    final docSnapshot = await FirebaseFirestore.instance
+        .collection('Users') // your Firestore collection
+        .doc(uid)
+        .get();
+
+    if (docSnapshot.exists) {
+      return docSnapshot.get('username').toString();
     } else {
       return 'Unknown';
     }
@@ -28,29 +44,26 @@ class _SurveyListPageState extends State<SurveyListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Submitted Surveys')),
-      body: StreamBuilder(
-        stream: ref.onValue,
+      body: StreamBuilder<QuerySnapshot>(
+        stream: surveyCollection.orderBy('timestamp', descending: true).snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
 
-          if (!snapshot.hasData || snapshot.data?.snapshot.value == null) {
+          if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
             return const Center(child: Text('No surveys found'));
           }
 
-          final data = Map<String, dynamic>.from((snapshot.data! as DatabaseEvent).snapshot.value as Map);
-
-          final items = data.entries.toList().reversed.toList();
+          final items = snapshot.data!.docs;
 
           return ListView.builder(
             itemCount: items.length,
             itemBuilder: (context, index) {
-              final id = items[index].key;
-              final value = Map<String, dynamic>.from(items[index].value);
-
-              final reporterName = value['reporterName'] ?? 'Unknown';
-              final date = value['date'] ?? '';
+              final doc = items[index];
+              final data = doc.data() as Map<String, dynamic>;
+              final reporterName = data['reporterName'];
+              final date = data['date'] ?? '';
 
               return Card(
                 margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
@@ -74,7 +87,7 @@ class _SurveyListPageState extends State<SurveyListPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => SurveyDetailPage(surveyId: id!, data: value),
+                        builder: (_) => SurveyDetailPage(surveyId: doc.id, data: data),
                       ),
                     );
                   },
