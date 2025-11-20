@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,7 +7,8 @@ import 'package:login_app_2025/constants/app_assets.dart';
 import 'package:login_app_2025/ui/auth/login_with_phone_number.dart';
 import 'package:login_app_2025/ui/auth/signup_screen.dart';
 import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/admin_dashboard.dart';
-import 'package:login_app_2025/ui/forget_password_screen.dart';
+import 'package:login_app_2025/ui/auth/forget_password_screen.dart';
+import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/employee_dashboard.dart';
 import 'package:login_app_2025/utils/utils.dart';
 import 'package:login_app_2025/widgets/round_botton.dart';
 
@@ -178,4 +180,39 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+    void route() {
+    User? user = FirebaseAuth.instance.currentUser;
+    var kk = FirebaseFirestore.instance.collection('Users').doc(user!.uid).get().then((
+      DocumentSnapshot documentSnapshot,
+    ) {
+      if (documentSnapshot.exists) {
+        if (documentSnapshot.get('role') == "Admin") {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AdminDashboard()));
+        } else {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => EmployeeDashboard()));
+        }
+      } else {
+        print('Document does not exist on the database');
+      }
+    });
+  }
+
+  void signIn(String email, String password) async {
+    if (_formkey.currentState!.validate()) {
+      try {
+        UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+        route();
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'user-not-found') {
+          print('No user found for that email.');
+        } else if (e.code == 'wrong-password') {
+          print('Wrong password provided for that user.');
+        }
+      }
+    }
+  }
+
 }

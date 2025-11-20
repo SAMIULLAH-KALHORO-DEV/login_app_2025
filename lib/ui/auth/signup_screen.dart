@@ -73,6 +73,10 @@ class _SignupScreenState extends State<SignupScreen> {
         });
   }
 
+  var options = ['Admin', 'employee'];
+  var _currentItemSelected = "Admin";
+  var role = "Admin";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,24 +99,63 @@ class _SignupScreenState extends State<SignupScreen> {
                     children: [
                       Text('Role', style: TextsTheme().heading2sytle),
                       SizedBox(height: 5),
-                      TextFormField(
-                        keyboardType: TextInputType.text,
-                        controller: rolecontroller,
-                        decoration: InputDecoration(
-                          hintText: 'ie. manager, employyee',
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
-                          ),
-                          suffixIcon: Icon(Icons.person),
+
+                      // TextFormField(
+                      //   keyboardType: TextInputType.text,
+                      //   controller: rolecontroller,
+                      //   decoration: InputDecoration(
+                      //     hintText: 'ie. manager, employyee',
+                      //     enabledBorder: OutlineInputBorder(
+                      //       borderRadius: BorderRadius.circular(12),
+                      //       borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
+                      //     ),
+                      //     suffixIcon: Icon(Icons.person),
+                      //   ),
+                      //   validator: (value) {
+                      //     if (value!.isEmpty) {
+                      //       return 'Please enter Role';
+                      //     }
+                      //     return null;
+                      //   },
+                      // ),
+
+                      // role based login dropdown
+                      Container(
+                        width: double.infinity,
+                        height: 50,
+                        padding: EdgeInsets.symmetric(horizontal: 12),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: ColorsTheme().borderColor),
                         ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter Role';
-                          }
-                          return null;
-                        },
+                        child: DropdownButton<String>(
+                          alignment: AlignmentGeometry.centerRight,
+                          style: TextsTheme().heading3sytle.copyWith(color: ColorsTheme().borderColor),
+                          dropdownColor: const Color(0xFFF5F5F7),
+                          // isDense: true,
+                          isExpanded: false,
+                          iconEnabledColor: ColorsTheme().borderColor,
+                          focusColor: const Color.fromARGB(255, 48, 38, 38),
+                          items: options.map((String dropDownStringItem) {
+                            return DropdownMenuItem<String>(
+                              value: dropDownStringItem,
+                              child: Text(
+                                dropDownStringItem,
+                                style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (newValueSelected) {
+                            setState(() {
+                              _currentItemSelected = newValueSelected!;
+                              role = newValueSelected;
+                            });
+                          },
+                          value: _currentItemSelected,
+                        ),
                       ),
+
+                      //
                       SizedBox(height: 20),
                       Text('User Name', style: TextsTheme().heading2sytle),
                       SizedBox(height: 5),
@@ -213,5 +256,23 @@ class _SignupScreenState extends State<SignupScreen> {
         ),
       ),
     );
+  }
+
+  void signUp(String email, String password, String rool) async {
+    CircularProgressIndicator();
+    if (_formkey.currentState!.validate()) {
+      await _auth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((value) => {postDetailsToFirestore(email, rool)})
+          .catchError((e) {});
+    }
+  }
+
+  postDetailsToFirestore(String email, String rool) async {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    var user = _auth.currentUser;
+    CollectionReference ref = FirebaseFirestore.instance.collection('Users');
+    ref.doc(user!.uid).set({'email': emailcontroller.text, 'role': rool});
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
   }
 }
