@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:login_app_2025/constants/app_assets.dart';
 import 'package:login_app_2025/constants/app_theme.dart';
 import 'package:login_app_2025/constants/survey_forms_texts/survey_form1_texts.dart';
-import 'package:login_app_2025/ui/quick_access_panel/Surveys/survey_forms/widgets/custom_text_field_widget.dart';
+import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/quick_access_panel/Surveys/survey_forms/widgets/custom_text_field_widget.dart';
 import 'package:login_app_2025/widgets/round_botton.dart';
 
 class SurveyForm1 extends StatefulWidget {

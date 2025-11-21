@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login_app_2025/ui/quick_access_panel/Surveys/survey_forms/survey_form1.dart';
+import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/quick_access_panel/Surveys/survey_forms/survey_form1.dart';
 
 class SurveysScreen extends StatelessWidget {
   const SurveysScreen({super.key});
