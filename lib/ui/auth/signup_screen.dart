@@ -54,7 +54,7 @@ class _SignupScreenState extends State<SignupScreen> {
         //   });
         .then((value) async {
           await _usersCollection.doc(value.user!.uid).set({
-            'role': rolecontroller.text.toString(),
+            'role': role,
             'email': emailcontroller.text.toString(),
             'username': usernamecontroller.text.toString(),
             'uid': value.user!.uid,

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,23 +16,33 @@ class ProfileSectionEmpolyee extends StatefulWidget {
 
 class _ProfileSectionEmpolyeeState extends State<ProfileSectionEmpolyee> {
   final auth = FirebaseAuth.instance;
-  final refuser = FirebaseDatabase.instance.ref('Users');
+  final usersCollection = FirebaseFirestore.instance.collection('Users');
   final editController = TextEditingController();
 
   Future<String> getUsername(String uid) async {
-    final snapshot = await refuser.child(uid).get();
-    if (snapshot.exists) {
-      return snapshot.child('username').value.toString();
-    } else {
+    try {
+      final doc = await usersCollection.doc(uid).get();
+      if (doc.exists) {
+        final data = doc.data();
+        return (data != null && data['username'] != null) ? data['username'].toString() : 'Unknown';
+      } else {
+        return 'Unknown';
+      }
+    } catch (e) {
       return 'Unknown';
     }
   }
 
   Future<String> getRole(String uid) async {
-    final snapshot = await refuser.child(uid).get();
-    if (snapshot.exists) {
-      return snapshot.child('role').value.toString();
-    } else {
+    try {
+      final doc = await usersCollection.doc(uid).get();
+      if (doc.exists) {
+        final data = doc.data();
+        return (data != null && data['role'] != null) ? data['role'].toString() : 'Unknown';
+      } else {
+        return 'Unknown';
+      }
+    } catch (e) {
       return 'Unknown';
     }
   }

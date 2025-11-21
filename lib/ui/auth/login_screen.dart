@@ -1,15 +1,196 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter/services.dart';
+// import 'package:login_app_2025/constants/app_theme.dart';
+// import 'package:login_app_2025/constants/app_assets.dart';
+// import 'package:login_app_2025/ui/auth/login_with_phone_number.dart';
+// import 'package:login_app_2025/ui/auth/signup_screen.dart';
+// import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/admin_dashboard.dart';
+// import 'package:login_app_2025/ui/auth/forget_password_screen.dart';
+// import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/employee_dashboard.dart';
+// import 'package:login_app_2025/utils/utils.dart';
+// import 'package:login_app_2025/widgets/round_botton.dart';
+
+// class LoginScreen extends StatefulWidget {
+//   const LoginScreen({super.key});
+
+//   @override
+//   State<LoginScreen> createState() => _LoginScreenState();
+// }
+
+// class _LoginScreenState extends State<LoginScreen> {
+//   final _formkey = GlobalKey<FormState>();
+//   final emailcontroller = TextEditingController();
+//   final passwordcontroller = TextEditingController();
+//   bool loading = false;
+
+//   final _auth = FirebaseAuth.instance;
+
+//   @override
+//   void dispose() {
+//     super.dispose();
+//     emailcontroller.dispose();
+//     passwordcontroller.dispose();
+//   }
+
+//   void login() {
+//     setState(() {
+//       loading = true;
+//     });
+//     _auth
+//         .signInWithEmailAndPassword(email: emailcontroller.text, password: passwordcontroller.text)
+//         .then((value) {
+//           Utils().toastMessage(value.user!.email.toString());
+//           // ignore: use_build_context_synchronously
+//           Navigator.push(context, MaterialPageRoute(builder: (context) => AdminDashboard()));
+//           setState(() {
+//             loading = false;
+//           });
+//         })
+//         .onError((error, stackTrace) {
+//           debugPrint(error.toString());
+//           Utils().toastMessage(error.toString());
+
+//           setState(() {
+//             loading = false;
+//           });
+//         });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     // ignore: deprecated_member_use
+//     return WillPopScope(
+//       onWillPop: () async {
+//         SystemNavigator.pop();
+//         return true;
+//       },
+//       child: Scaffold(
+//         backgroundColor: Colors.white,
+
+//         body: SafeArea(
+//           child: Padding(
+//             padding: const EdgeInsets.all(10.0),
+//             child: SingleChildScrollView(
+//               child: Column(
+//                 mainAxisAlignment: MainAxisAlignment.center,
+//                 crossAxisAlignment: CrossAxisAlignment.center,
+//                 children: [
+//                   Text('Login', style: TextsTheme().heading1sytle),
+//                   SizedBox(height: 20),
+//                   Image(image: AssetImage(AppAssets.logo), height: 150, width: 150),
+
+//                   Form(
+//                     key: _formkey,
+//                     child: Column(
+//                       children: [
+//                         TextFormField(
+//                           keyboardType: TextInputType.emailAddress,
+//                           controller: emailcontroller,
+//                           decoration: InputDecoration(
+//                             hintText: 'Email',
+//                             enabledBorder: OutlineInputBorder(
+//                               borderRadius: BorderRadius.circular(12),
+//                               borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
+//                             ),
+//                           ),
+//                           validator: (value) {
+//                             if (value!.isEmpty) {
+//                               return 'Please enter email';
+//                             }
+//                             return null;
+//                           },
+//                         ),
+//                         SizedBox(height: 20),
+//     TextFormField(
+//       controller: passwordcontroller,
+//       keyboardType: TextInputType.text,
+//       decoration: InputDecoration(
+//         hintText: 'Password',
+//         enabledBorder: OutlineInputBorder(
+//           borderRadius: BorderRadius.circular(12),
+//           borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
+//         ),
+//       ),
+//       obscureText: true,
+//       validator: (value) {
+//         if (value!.isEmpty) {
+//           return 'Please enter password';
+//         }
+//         return null;
+//       },
+//     ),
+//   ],
+// ),
+//                   ),
+//                   SizedBox(height: 50),
+//                   RoundBotton(
+//                     loading: loading,
+//                     title: 'Login',
+//                     height: 50,
+//                     ontap: () {
+//                       if (_formkey.currentState!.validate()) {
+//                         // Handle login
+//                         signIn(emailcontroller.text, passwordcontroller.text);
+//                       }
+//                     },
+//                   ),
+//                   Align(
+//                     alignment: AlignmentGeometry.bottomRight,
+//                     child: TextButton(
+//                       onPressed: () {
+//                         Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPasswordScreen()));
+//                       },
+//                       child: Text('Forget Password'),
+//                     ),
+//                   ),
+//                   SizedBox(height: 20),
+//                   Row(
+//                     mainAxisAlignment: MainAxisAlignment.center,
+//                     children: [
+//                       Text(' Don\'t have an account?'),
+//                       TextButton(
+//                         onPressed: () {
+//                           Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen()));
+//                         },
+//                         child: Text('Sign Up'),
+//                       ),
+//                     ],
+//                   ),
+//                   SizedBox(height: 30),
+//                   InkWell(
+//                     onTap: () {
+//                       Navigator.push(context, MaterialPageRoute(builder: (context) => LoginWithPhoneNumber()));
+//                     },
+//                     child: Container(
+//                       height: 50,
+//                       decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.circular(20),
+//                         border: Border.all(color: Colors.black),
+//                       ),
+//                       child: Center(child: Text('Login with Phone number')),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+
+// }
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:login_app_2025/constants/app_theme.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:login_app_2025/constants/app_assets.dart';
+import 'package:login_app_2025/constants/app_theme.dart';
+import 'package:login_app_2025/ui/auth/forget_password_screen.dart';
 import 'package:login_app_2025/ui/auth/login_with_phone_number.dart';
 import 'package:login_app_2025/ui/auth/signup_screen.dart';
-import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/admin_dashboard.dart';
-import 'package:login_app_2025/ui/auth/forget_password_screen.dart';
-import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/employee_dashboard.dart';
-import 'package:login_app_2025/utils/utils.dart';
 import 'package:login_app_2025/widgets/round_botton.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -20,199 +201,132 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _formkey = GlobalKey<FormState>();
-  final emailcontroller = TextEditingController();
-  final passwordcontroller = TextEditingController();
-  bool loading = false;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  bool isLoading = false;
 
-  final _auth = FirebaseAuth.instance;
+  Future<void> loginUser() async {
+    setState(() => isLoading = true);
 
-  @override
-  void dispose() {
-    super.dispose();
-    emailcontroller.dispose();
-    passwordcontroller.dispose();
-  }
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
 
-  void login() {
-    setState(() {
-      loading = true;
-    });
-    _auth
-        .signInWithEmailAndPassword(email: emailcontroller.text, password: passwordcontroller.text)
-        .then((value) {
-          Utils().toastMessage(value.user!.email.toString());
-          // ignore: use_build_context_synchronously
-          Navigator.push(context, MaterialPageRoute(builder: (context) => AdminDashboard()));
-          setState(() {
-            loading = false;
-          });
-        })
-        .onError((error, stackTrace) {
-          debugPrint(error.toString());
-          Utils().toastMessage(error.toString());
+      String uid = userCredential.user!.uid;
 
-          setState(() {
-            loading = false;
-          });
-        });
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('Users').doc(uid).get();
+
+      if (!userDoc.exists) {
+        setState(() => isLoading = false);
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("User data not found.")));
+        return;
+      }
+
+      String role = userDoc['role'];
+
+      setState(() => isLoading = false);
+
+      // Navigate based on role
+      if (role == 'admin') {
+        Navigator.pushReplacementNamed(context, '/adminHome');
+      } else if (role == 'employee') {
+        Navigator.pushReplacementNamed(context, '/employeeHome');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Unknown role.")));
+      }
+    } on FirebaseAuthException catch (e) {
+      setState(() => isLoading = false);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message ?? "Login failed")));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    // ignore: deprecated_member_use
-    return WillPopScope(
-      onWillPop: () async {
-        SystemNavigator.pop();
-        return true;
-      },
-      child: Scaffold(
-        backgroundColor: Colors.white,
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Text('Login', style: TextsTheme().heading1sytle),
 
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text('Login', style: TextsTheme().heading1sytle),
-                  SizedBox(height: 20),
-                  Image(image: AssetImage(AppAssets.logo), height: 150, width: 150),
-
-                  Form(
-                    key: _formkey,
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          keyboardType: TextInputType.emailAddress,
-                          controller: emailcontroller,
-                          decoration: InputDecoration(
-                            hintText: 'Email',
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter email';
-                            }
-                            return null;
-                          },
-                        ),
-                        SizedBox(height: 20),
-                        TextFormField(
-                          controller: passwordcontroller,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            hintText: 'Password',
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
-                            ),
-                          ),
-                          obscureText: true,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter password';
-                            }
-                            return null;
-                          },
-                        ),
-                      ],
+                SizedBox(height: 20),
+                // company logo
+                Image(image: AssetImage(AppAssets.logo), height: 150, width: 150),
+                // email field 
+                TextField(
+                  controller: emailController,
+                  decoration: InputDecoration(
+                    hintText: 'Email',
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
                     ),
                   ),
-                  SizedBox(height: 50),
-                  RoundBotton(
-                    loading: loading,
-                    title: 'Login',
-                    height: 50,
-                    ontap: () {
-                      if (_formkey.currentState!.validate()) {
-                        // Handle login
-                        login();
-                      }
-                    },
+                ),
+                SizedBox(height: 20),
+                // password field
+                TextField(
+                  controller: passwordController,
+                  decoration: InputDecoration(
+                    hintText: 'Password',
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
+                    ),
                   ),
-                  Align(
-                    alignment: AlignmentGeometry.bottomRight,
-                    child: TextButton(
+
+                  obscureText: true,
+                ),
+                const SizedBox(height: 20),
+                isLoading
+                    ? const CircularProgressIndicator()
+                    : RoundBotton(title: 'Login', height: 50, ontap: loginUser),
+
+                Align(
+                  alignment: AlignmentGeometry.bottomRight,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPasswordScreen()));
+                    },
+                    child: Text('Forget Password'),
+                  ),
+                ),
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(' Don\'t have an account?'),
+                    TextButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPasswordScreen()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen()));
                       },
-                      child: Text('Forget Password'),
+                      child: Text('Sign Up'),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(' Don\'t have an account?'),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen()));
-                        },
-                        child: Text('Sign Up'),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 30),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => LoginWithPhoneNumber()));
-                    },
-                    child: Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: Colors.black),
-                      ),
-                      child: Center(child: Text('Login with Phone number')),
+                  ],
+                ),
+                SizedBox(height: 30),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginWithPhoneNumber()));
+                  },
+                  child: Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: Colors.black),
                     ),
+                    child: Center(child: Text('Login with Phone number')),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
       ),
     );
   }
-    void route() {
-    User? user = FirebaseAuth.instance.currentUser;
-    var kk = FirebaseFirestore.instance.collection('Users').doc(user!.uid).get().then((
-      DocumentSnapshot documentSnapshot,
-    ) {
-      if (documentSnapshot.exists) {
-        if (documentSnapshot.get('role') == "Admin") {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => AdminDashboard()));
-        } else {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => EmployeeDashboard()));
-        }
-      } else {
-        print('Document does not exist on the database');
-      }
-    });
-  }
-
-  void signIn(String email, String password) async {
-    if (_formkey.currentState!.validate()) {
-      try {
-        UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email,
-          password: password,
-        );
-        route();
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'user-not-found') {
-          print('No user found for that email.');
-        } else if (e.code == 'wrong-password') {
-          print('Wrong password provided for that user.');
-        }
-      }
-    }
-  }
-
 }

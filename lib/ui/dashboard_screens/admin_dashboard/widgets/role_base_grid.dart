@@ -14,8 +14,8 @@ class AdminRoleBasedGrid extends StatefulWidget {
 class _AdminRoleBasedGridState extends State<AdminRoleBasedGrid> {
   final List<Map<String, dynamic>> gridItems = [
     {'icon': CupertinoIcons.bag_badge_plus, 'title': 'Surveys'},
-    {'icon': Icons.stacked_bar_chart, 'title': 'Reports'},
-    {'icon': CupertinoIcons.time, 'title': 'Schedule'},
+    {'icon': Icons.stacked_bar_chart, 'title': 'Services'},
+    {'icon': CupertinoIcons.time, 'title': 'Latters'},
     {'icon': Icons.analytics, 'title': 'Analytics'},
     {'icon': Icons.notifications, 'title': 'Notifications'},
     {'icon': Icons.person, 'title': 'Profile'},
@@ -25,10 +25,10 @@ class _AdminRoleBasedGridState extends State<AdminRoleBasedGrid> {
       case 'Surveys':
         Navigator.push(context, MaterialPageRoute(builder: (_) => SubmittedSurveyList()));
         break;
-      case 'Reports':
+      case 'Services':
         Navigator.push(context, MaterialPageRoute(builder: (_) => SubmittedSurveyList()));
         break;
-      case 'Schedule':
+      case 'Latters':
         Navigator.push(context, MaterialPageRoute(builder: (_) => SubmittedSurveyList()));
         break;
       case 'Analytics':

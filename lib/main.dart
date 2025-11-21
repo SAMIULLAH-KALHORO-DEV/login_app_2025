@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'; // <-- Import Riverpod
+import 'package:login_app_2025/ui/auth/login_screen.dart';
+import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/admin_dashboard.dart';
+import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/employee_dashboard.dart';
 import 'package:login_app_2025/ui/splash_screen.dart';
 import 'firebase_options.dart';
 
@@ -22,11 +25,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+       initialRoute: '/',
+      routes: {
+        '/': (context) => const LoginScreen(),
+        '/adminHome': (context) => const AdminDashboard(),
+        '/employeeHome': (context) => const EmployeeDashboard(),
+      },
       theme: ThemeData(scaffoldBackgroundColor: Colors.white),
       color: Colors.white,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: const SplashScreen(),
+    
     );
   }
 }
