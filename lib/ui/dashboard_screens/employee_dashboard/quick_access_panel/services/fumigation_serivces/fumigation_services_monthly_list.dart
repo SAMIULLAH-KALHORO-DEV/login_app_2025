@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:login_app_2025/constants/app_theme.dart';
 import 'package:login_app_2025/utils/utils.dart';
 
 class FumigationServicesMonthlyList extends StatefulWidget {
@@ -15,6 +16,7 @@ class _FumigationServicesMonthlyListState extends State<FumigationServicesMonthl
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text('Monthly Fumigation Services', style: TextsTheme().heading2sytle)),
       body: StreamBuilder<QuerySnapshot>(
         stream: monthlyCard.orderBy('timestamp', descending: true).snapshots(),
         builder: (context, snapshot) {
@@ -23,7 +25,7 @@ class _FumigationServicesMonthlyListState extends State<FumigationServicesMonthl
           }
 
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return const Center(child: Text('No surveys found'));
+            return const Center(child: Text('Add month'));
           }
 
           final items = snapshot.data!.docs;
@@ -39,8 +41,11 @@ class _FumigationServicesMonthlyListState extends State<FumigationServicesMonthl
                 margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                 elevation: 2,
                 child: ListTile(
-                  title: Text('', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                  subtitle: Text(monthName, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 11)),
+                  title: Text(monthName, style: TextsTheme().heading2sytle),
+                  subtitle: Text(
+                    'Fumigation Services',
+                    style: TextsTheme().heading3sytle.copyWith(color: const Color(0x73000000)),
+                  ),
 
                   trailing: IconButton(
                     onPressed: () async {
@@ -51,12 +56,7 @@ class _FumigationServicesMonthlyListState extends State<FumigationServicesMonthl
                     icon: const Icon(Icons.delete, size: 18),
                   ),
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => FumigationServicesMonthlyList(),
-                      ),
-                    );
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => FumigationServicesMonthlyList()));
                   },
                 ),
               );
@@ -85,39 +85,40 @@ class AddMonthCard extends StatefulWidget {
 class _AddMonthCardState extends State<AddMonthCard> {
   final CollectionReference monthlyCard = FirebaseFirestore.instance.collection('FumigationMonthlyCard');
   final TextEditingController addmonthNameController = TextEditingController();
-  // Future
-  void _fumigationServicesMonthlyList() async {
-    try {
-      await monthlyCard.add({'monthname': addmonthNameController.text.trim()});
 
-      // clear all fields
+  void _addMonth() async {
+    try {
+      await monthlyCard.add({
+        'monthname': addmonthNameController.text.trim(),
+        'timestamp': DateTime.now().toIso8601String(),
+      });
       addmonthNameController.clear();
 
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Month Added successfully!')));
+      // Show Snackbar from bottom
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Month Added successfully!'), duration: Duration(seconds: 2)));
     } catch (e) {
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error submitting: $e')));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e'), duration: Duration(seconds: 2)));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return SnackBar(
-      content: Column(
-        children: [
-          TextField(
-            controller: addmonthNameController,
-            decoration: InputDecoration(hintText: 'Enter Month Name'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              _fumigationServicesMonthlyList();
-              Utils().toastMessage('Month Added');
-            },
-            child: Text('Add Month'),
-          ),
-        ],
+    return Scaffold(
+      appBar: AppBar(title: Text('Add Month')),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: addmonthNameController,
+              decoration: InputDecoration(hintText: 'Enter Month Name'),
+            ),
+            SizedBox(height: 16),
+            ElevatedButton(onPressed: _addMonth, child: Text('Add Month')),
+          ],
+        ),
       ),
     );
   }
