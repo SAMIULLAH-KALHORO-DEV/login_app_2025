@@ -4,8 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 // / splash_screen.dart
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:login_app_2025/constants/app_assets.dart';
+
 import 'package:login_app_2025/ui/auth/login_screen.dart';
 import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/admin_dashboard.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/employee_dashboard.dart';

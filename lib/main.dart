@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart'; // <-- Import Riverpod
 import 'package:login_app_2025/ui/auth/login_screen.dart';
 import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/admin_dashboard.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/employee_dashboard.dart';
-import 'package:login_app_2025/ui/splash_screen.dart';
 import 'firebase_options.dart';
 
 void main() async {

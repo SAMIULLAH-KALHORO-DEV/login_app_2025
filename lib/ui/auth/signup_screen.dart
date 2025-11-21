@@ -44,14 +44,6 @@ class _SignupScreenState extends State<SignupScreen> {
           email: emailcontroller.text.toString(),
           password: passwordcontroller.text.toString(),
         )
-        // .then((value) async {
-        // Save username in Realtime Database
-        //   await _database.child(value.user!.uid).set({
-        //     'role': rolecontroller.text.toString(),
-        //     'email': emailcontroller.text.toString(),
-        //     'username': usernamecontroller.text.toString(),
-        //     'uid': value.user!.uid,
-        //   });
         .then((value) async {
           await _usersCollection.doc(value.user!.uid).set({
             'role': role,
@@ -100,25 +92,6 @@ class _SignupScreenState extends State<SignupScreen> {
                       Text('Role', style: TextsTheme().heading2sytle),
                       SizedBox(height: 5),
 
-                      // TextFormField(
-                      //   keyboardType: TextInputType.text,
-                      //   controller: rolecontroller,
-                      //   decoration: InputDecoration(
-                      //     hintText: 'ie. manager, employyee',
-                      //     enabledBorder: OutlineInputBorder(
-                      //       borderRadius: BorderRadius.circular(12),
-                      //       borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
-                      //     ),
-                      //     suffixIcon: Icon(Icons.person),
-                      //   ),
-                      //   validator: (value) {
-                      //     if (value!.isEmpty) {
-                      //       return 'Please enter Role';
-                      //     }
-                      //     return null;
-                      //   },
-                      // ),
-
                       // role based login dropdown
                       Container(
                         width: double.infinity,
@@ -155,7 +128,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         ),
                       ),
 
-                      //
+                      // user name text field
                       SizedBox(height: 20),
                       Text('User Name', style: TextsTheme().heading2sytle),
                       SizedBox(height: 5),
@@ -181,6 +154,8 @@ class _SignupScreenState extends State<SignupScreen> {
                       SizedBox(height: 20),
                       Text('Email', style: TextsTheme().heading2sytle),
                       SizedBox(height: 5),
+
+                      // email text field
                       TextFormField(
                         keyboardType: TextInputType.emailAddress,
                         controller: emailcontroller,
@@ -201,7 +176,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       SizedBox(height: 20),
                       Text('Password', style: TextsTheme().heading2sytle),
-
+                      // password text field
                       TextFormField(
                         controller: passwordcontroller,
                         keyboardType: TextInputType.text,
@@ -256,23 +231,5 @@ class _SignupScreenState extends State<SignupScreen> {
         ),
       ),
     );
-  }
-
-  void signUp(String email, String password, String rool) async {
-    CircularProgressIndicator();
-    if (_formkey.currentState!.validate()) {
-      await _auth
-          .createUserWithEmailAndPassword(email: email, password: password)
-          .then((value) => {postDetailsToFirestore(email, rool)})
-          .catchError((e) {});
-    }
-  }
-
-  postDetailsToFirestore(String email, String rool) async {
-    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-    var user = _auth.currentUser;
-    CollectionReference ref = FirebaseFirestore.instance.collection('Users');
-    ref.doc(user!.uid).set({'email': emailcontroller.text, 'role': rool});
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
   }
 }
