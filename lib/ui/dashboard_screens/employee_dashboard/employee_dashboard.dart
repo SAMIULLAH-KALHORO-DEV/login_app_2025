@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:login_app_2025/constants/app_theme.dart';
 
 import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/widgets/upcoming_events.dart';
-import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/widgets/bottom_navigation_bar.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/widgets/profile_section.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/widgets/role_base_grid.dart';
-import 'package:login_app_2025/ui/quick_access_panel/Surveys/survey_forms/submit_survey_lists/submitted_survey_lists.dart';
 
 class EmployeeDashboard extends StatefulWidget {
   const EmployeeDashboard({super.key});

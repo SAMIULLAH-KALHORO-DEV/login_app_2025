@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:login_app_2025/constants/app_theme.dart';
 import 'package:login_app_2025/ui/quick_access_panel/Surveys/survey_forms/submit_survey_lists/submitted_survey_details.dart';
+import 'package:login_app_2025/utils/utils.dart';
 // make this file next
 
 class SubmittedSurveyList extends StatefulWidget {
@@ -14,7 +14,6 @@ class SubmittedSurveyList extends StatefulWidget {
 }
 
 class _SubmittedSurveyListState extends State<SubmittedSurveyList> {
-  final DatabaseReference ref = FirebaseDatabase.instance.ref('SurveyForms');
   final CollectionReference surveyCollection = FirebaseFirestore.instance.collection('SurveyForms');
   // final refuser = FirebaseDatabase.instance.ref('Users');
 
@@ -70,19 +69,28 @@ class _SubmittedSurveyListState extends State<SubmittedSurveyList> {
                 elevation: 2,
                 child: ListTile(
                   title: Text(reporterName, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                  subtitle: FutureBuilder<String>(
-                    future: getUsername(FirebaseAuth.instance.currentUser!.uid),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Text('Loading...', style: TextsTheme().heading3sytle);
-                      } else if (snapshot.hasError) {
-                        return Text('Error', style: TextsTheme().heading3sytle);
-                      } else {
-                        return Text(snapshot.data ?? 'Unknown', style: TextsTheme().heading3sytle);
-                      }
+                  subtitle: Text(date, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 11)),
+                  // subtitle: FutureBuilder<String>(
+                  //   future: getUsername(FirebaseAuth.instance.currentUser!.uid),
+                  //   builder: (context, snapshot) {
+                  //     if (snapshot.connectionState == ConnectionState.waiting) {
+                  //       return Text('Loading...', style: TextsTheme().heading3sytle);
+                  //     } else if (snapshot.hasError) {
+                  //       return Text('Error', style: TextsTheme().heading3sytle);
+                  //     } else {
+                  //       return Text(snapshot.data ?? 'Unknown', style: TextsTheme().heading3sytle);
+                  //     }
+                  //   },
+                  // ),
+                  trailing: IconButton(
+                    onPressed: () async {
+                      await FirebaseFirestore.instance.collection("SurveyForms").doc(doc.id).delete();
+                      
+
+                      // Utils().toastMessage('');
                     },
+                    icon: const Icon(Icons.delete, size: 18),
                   ),
-                  trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 18),
                   onTap: () {
                     Navigator.push(
                       context,

@@ -229,9 +229,9 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() => isLoading = false);
 
       // Navigate based on role
-      if (role == 'admin') {
+      if (role == 'Admin') {
         Navigator.pushReplacementNamed(context, '/adminHome');
-      } else if (role == 'employee') {
+      } else if (role == 'Employee') {
         Navigator.pushReplacementNamed(context, '/employeeHome');
       } else {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Unknown role.")));
@@ -256,7 +256,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: 20),
                 // company logo
                 Image(image: AssetImage(AppAssets.logo), height: 150, width: 150),
-                // email field 
+                // email field
                 TextField(
                   controller: emailController,
                   decoration: InputDecoration(

@@ -14,9 +14,9 @@ class AdminRoleBasedGrid extends StatefulWidget {
 class _AdminRoleBasedGridState extends State<AdminRoleBasedGrid> {
   final List<Map<String, dynamic>> gridItems = [
     {'icon': CupertinoIcons.bag_badge_plus, 'title': 'Surveys'},
-    {'icon': Icons.stacked_bar_chart, 'title': 'Services'},
-    {'icon': CupertinoIcons.time, 'title': 'Latters'},
-    {'icon': Icons.analytics, 'title': 'Analytics'},
+    {'icon': Icons.miscellaneous_services, 'title': 'Services'},
+    {'icon': Icons.description, 'title': 'Latters'},
+    {'icon': Icons.query_stats_outlined, 'title': 'Analytics'},
     {'icon': Icons.notifications, 'title': 'Notifications'},
     {'icon': Icons.person, 'title': 'Profile'},
   ];
@@ -47,47 +47,56 @@ class _AdminRoleBasedGridState extends State<AdminRoleBasedGrid> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(12.0),
-      child: GridView.builder(
-        shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, // 3 icons per row
-          mainAxisSpacing: 16,
-          crossAxisSpacing: 16,
-          childAspectRatio: 0.9, // Adjust height for icon + title
-        ),
-        itemCount: gridItems.length,
-        itemBuilder: (context, index) {
-          final item = gridItems[index];
-          return InkWell(
-            borderRadius: BorderRadius.circular(20),
-            onTap: () => _onItemTap(item['title']),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: ContainerTheme().containerTheme1,
-                  child: Icon(item['icon'], size: 40, color: ColorsTheme().iconColor),
-                ),
-                SizedBox(height: 8),
-                Text(item['title'], style: TextsTheme().heading3sytle),
-              ],
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          int crossAxisCount;
+
+          // Auto adjust based on screen width
+          if (constraints.maxWidth >= 1200) {
+            crossAxisCount = 6; // Large Desktop
+          } else if (constraints.maxWidth >= 900) {
+            crossAxisCount = 5; // Medium Web / Tablet Landscape
+          } else if (constraints.maxWidth >= 600) {
+            crossAxisCount = 4; // Small Web / Tablet
+          } else {
+            crossAxisCount = 3; // Mobile
+          }
+
+          return GridView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: crossAxisCount,
+              mainAxisSpacing: 16,
+              crossAxisSpacing: 16,
+              childAspectRatio: 0.9,
             ),
+            itemCount: gridItems.length,
+            itemBuilder: (context, index) {
+              final item = gridItems[index];
+
+              return InkWell(
+                borderRadius: BorderRadius.circular(20),
+                onTap: () => _onItemTap(item['title']),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 80,
+                      height: 80,
+                      padding: EdgeInsets.all(16),
+                      decoration: ContainerTheme().containerTheme1,
+                      child: Icon(item['icon'], size: 40, color: ColorsTheme().iconColor),
+                    ),
+                    SizedBox(height: 8),
+                    Text(item['title'], style: TextsTheme().heading3sytle, textAlign: TextAlign.center),
+                  ],
+                ),
+              );
+            },
           );
         },
       ),
     );
   }
 }
-
-
-  //  Container(
-  //               padding: EdgeInsets.all(16),
-  //               decoration: ContainerTheme().containerTheme1,
-  //               child: Icon(item['icon'], size: 40, color: ColorsTheme().iconColor),
-  //             ),
-  //             SizedBox(height: 8),
-  //             Text(item['title'], style: TextsTheme().heading3sytle),
-  //           ],
-  //         );

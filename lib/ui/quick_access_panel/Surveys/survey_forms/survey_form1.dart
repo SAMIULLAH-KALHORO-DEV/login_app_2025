@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:login_app_2025/constants/app_assets.dart';
 import 'package:login_app_2025/constants/app_theme.dart';
@@ -24,7 +23,6 @@ final TextEditingController actionReviewController = TextEditingController();
 
 class _SurveyForm1State extends State<SurveyForm1> {
   final CollectionReference surveyCollection = FirebaseFirestore.instance.collection('SurveyForms');
-  final DatabaseReference ref = FirebaseDatabase.instance.ref('SurveyForms');
 
   // future
   void _submitSurvey() async {
@@ -60,6 +58,8 @@ class _SurveyForm1State extends State<SurveyForm1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -70,6 +70,13 @@ class _SurveyForm1State extends State<SurveyForm1> {
                 SizedBox(height: 10),
                 Row(
                   children: [
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(Icons.arrow_back),
+                    ),
+                    SizedBox(width: 50),
                     Image(image: AssetImage(AppAssets.logoWithoutText), height: 100, width: 100),
                     SizedBox(width: 10),
                     Column(
@@ -100,7 +107,7 @@ class _SurveyForm1State extends State<SurveyForm1> {
                 SizedBox(height: 10),
                 Text(textAlign: TextAlign.right, SurveyForm1Texts.date, style: TextsTheme().urduHeading2sytle),
                 SizedBox(height: 10),
-TextFormField(
+                TextFormField(
                   controller: dateController,
                   readOnly: true,
                   decoration: InputDecoration(
@@ -160,11 +167,7 @@ TextFormField(
                 SizedBox(height: 10),
                 CustomTextField(controller: actionReviewController, hintText: ''),
                 SizedBox(height: 10),
-                RoundBotton(
-                  title: 'submit',
-                  height: 50,
-                  ontap: _submitSurvey
-                ),
+                RoundBotton(title: 'submit', height: 50, ontap: _submitSurvey),
                 SizedBox(height: 30),
               ],
             ),
