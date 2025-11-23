@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:login_app_2025/constants/app_theme.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
@@ -5,16 +6,20 @@ import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 class CustomTextField extends StatefulWidget {
   final TextEditingController? controller;
   final Widget? child;
-  final String hintText;
+  final bool obsureText;
+  final String? hintText;
+  final String? lebelText;
   final IconData? suffixIcon;
   final TextInputType keyboardType;
   final String? Function(String?)? validator;
   final bool isDatePicker; // add this to toggle date picker
 
   const CustomTextField({
+    this.obsureText = false,
+    this.lebelText,
     super.key,
     this.controller,
-    required this.hintText,
+    this.hintText,
     this.suffixIcon,
     this.keyboardType = TextInputType.text,
     this.validator,
@@ -27,15 +32,35 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
+  String currentValue = "";
+
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, {String? value}) {
+    final isUrdu = RegExp(r'[\u0600-\u06FF]').hasMatch(value ?? '');
+
     return TextFormField(
-      style: TextStyle(fontFamily: 'urdu_font'),
-      textDirection: TextDirection.rtl,
+      
+      // style: TextStyle(fontFamily: 'urdu_font'),
+      obscureText: widget.obsureText,
+      style: TextStyle(
+        fontFamily: RegExp(r'[\u0600-\u06FF]').hasMatch(widget.controller!.text)
+            ? 'urdu_font' // your Urdu font
+            : 'english_font', // your English font
+      ),
+      // textDirection: TextDirection.rtl,
+      textDirection: isUrdu ? TextDirection.rtl : TextDirection.ltr,
+      textAlign: isUrdu ? TextAlign.right : TextAlign.left,
       controller: widget.controller,
       readOnly: widget.isDatePicker, // only read-only if date picker
       keyboardType: widget.keyboardType,
+      onChanged: (val) {
+        setState(() {
+          currentValue = val;
+        });
+      },
       decoration: InputDecoration(
+        labelText: widget.lebelText,
         hintText: widget.hintText,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),

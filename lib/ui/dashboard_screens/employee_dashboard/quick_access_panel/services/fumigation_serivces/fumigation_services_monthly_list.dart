@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:login_app_2025/constants/app_theme.dart';
-import 'package:login_app_2025/utils/utils.dart';
+import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/quick_access_panel/services/fumigation_serivces/fumigation_service_list.dart';
 
 class FumigationServicesMonthlyList extends StatefulWidget {
   const FumigationServicesMonthlyList({super.key});
@@ -38,7 +38,6 @@ class _FumigationServicesMonthlyListState extends State<FumigationServicesMonthl
               final monthName = data['monthname'];
 
               return Card(
-                
                 margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                 elevation: 2,
                 child: ListTile(
@@ -50,14 +49,19 @@ class _FumigationServicesMonthlyListState extends State<FumigationServicesMonthl
 
                   trailing: IconButton(
                     onPressed: () async {
-                      await FirebaseFirestore.instance.collection("SurveyForms").doc(doc.id).delete();
+                      await FirebaseFirestore.instance.collection("FumigationMonthlyCard").doc(doc.id).delete();
 
                       // Utils().toastMessage('');
                     },
                     icon: const Icon(Icons.delete, size: 18),
                   ),
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => FumigationServicesMonthlyList()));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => FumigationServiceList(monthDocId: doc.id, monthName: monthName),
+                      ),
+                    );
                   },
                 ),
               );

@@ -5,8 +5,8 @@ class RoundBotton extends StatelessWidget {
   final VoidCallback ontap;
   final bool loading;
   final String title;
-  final double height;
-  const RoundBotton({super.key, required this.title, required this.height, this.loading = false, required this.ontap});
+  final double? height;
+  const RoundBotton({super.key, required this.title, this.height, this.loading = false, required this.ontap});
 
   @override
   Widget build(BuildContext context) {

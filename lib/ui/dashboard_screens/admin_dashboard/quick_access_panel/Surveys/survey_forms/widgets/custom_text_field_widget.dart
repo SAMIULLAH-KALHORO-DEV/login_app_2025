@@ -5,7 +5,7 @@ import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 class CustomTextField extends StatefulWidget {
   final TextEditingController? controller;
   final Widget? child;
-  final String hintText;
+  final String? hintText;
   final IconData? suffixIcon;
   final TextInputType keyboardType;
   final String? Function(String?)? validator;
@@ -14,7 +14,7 @@ class CustomTextField extends StatefulWidget {
   const CustomTextField({
     super.key,
     this.controller,
-    required this.hintText,
+     this.hintText,
     this.suffixIcon,
     this.keyboardType = TextInputType.text,
     this.validator,

@@ -12,7 +12,7 @@ class AdminDashboard extends StatefulWidget {
 }
 
 class _AdminDashboardState extends State<AdminDashboard> {
-  int _selectedIndex = 0;
+  // int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

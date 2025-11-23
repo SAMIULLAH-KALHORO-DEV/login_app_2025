@@ -14,7 +14,7 @@ class EmployeeDashboard extends StatefulWidget {
 
 
 class _EmployeeDashboardState extends State<EmployeeDashboard> {
-int _selectedIndex = 0;
+final int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
