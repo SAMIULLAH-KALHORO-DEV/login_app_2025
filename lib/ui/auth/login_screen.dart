@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:login_app_2025/constants/app_assets.dart';
+import 'package:login_app_2025/constants/app_colors.dart';
 import 'package:login_app_2025/constants/app_theme.dart';
+import 'package:login_app_2025/constants/background/background_one.dart';
 import 'package:login_app_2025/constants/validators.dart';
 import 'package:login_app_2025/ui/auth/forget_password_screen.dart';
 import 'package:login_app_2025/ui/auth/login_with_phone_number.dart';
@@ -63,100 +65,106 @@ class _LoginScreenState extends State<LoginScreen> {
     final TextFieldValidator validator = TextFieldValidator();
 
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Text('Login', style: TextsTheme().heading1sytle),
-
-                SizedBox(height: 20),
-                // company logo
-                Image(image: AssetImage(AppAssets.logo), height: 150, width: 150),
-                // email field
-                Form(
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        controller: emailController,
-                        validator: (value) {
-                          return validator.validateEmail(value);
-                        },
-                        decoration: InputDecoration(
-                          labelText: 'Email',
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      // password field
-                      TextFormField(
-                        validator: (value) {
-                          return validator.validatePassword(value);
-                        },
-                        controller: passwordController,
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
-                          ),
-                        ),
-
-                        obscureText: true,
-                      ),
-                    ],
-                  ),
-                ),
-
-                const SizedBox(height: 20),
-                isLoading
-                    ? const CircularProgressIndicator()
-                    : RoundBotton(title: 'Login', height: 50, ontap: loginUser),
-
-                Align(
-                  alignment: AlignmentGeometry.bottomRight,
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPasswordScreen()));
-                    },
-                    child: Text('Forget Password'),
-                  ),
-                ),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+      body: Stack(
+        children: [
+          const DiagonalWaveBackground2(),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
                   children: [
-                    Text(' Don\'t have an account?'),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen()));
+                    SizedBox(height: 20),
+                    // company logo
+                    Image(image: AssetImage(AppAssets.logogif), height: 140, width: 140),
+
+                    Text('Welcome Back!', style: PastelDuskTheme.light.textTheme.displayLarge!.copyWith(fontSize: 24)),
+                    SizedBox(height: 20),
+                    // email field
+                    Form(
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            controller: emailController,
+                            validator: (value) {
+                              return validator.validateEmail(value);
+                            },
+                            decoration: InputDecoration(
+                              labelText: 'Email',
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          // password field
+                          TextFormField(
+                            validator: (value) {
+                              return validator.validatePassword(value);
+                            },
+                            controller: passwordController,
+                            decoration: InputDecoration(
+                              labelText: 'Password',
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
+                              ),
+                            ),
+
+                            obscureText: true,
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    const SizedBox(height: 20),
+                    isLoading
+                        ? const CircularProgressIndicator()
+                        : RoundBotton(title: 'Login', height: 40, ontap: loginUser),
+
+                    Align(
+                      alignment: AlignmentGeometry.bottomRight,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPasswordScreen()));
+                        },
+                        child: Text('Forget Password'),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(' Don\'t have an account?'),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen()));
+                          },
+                          child: Text('Sign Up'),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 30),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => LoginWithPhoneNumber()));
                       },
-                      child: Text('Sign Up'),
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: Colors.black),
+                        ),
+                        child: Center(child: Text('Login with Phone number')),
+                      ),
                     ),
                   ],
                 ),
-                SizedBox(height: 30),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginWithPhoneNumber()));
-                  },
-                  child: Container(
-                    height: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: Colors.black),
-                    ),
-                    child: Center(child: Text('Login with Phone number')),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

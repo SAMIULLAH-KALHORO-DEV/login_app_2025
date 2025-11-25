@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_app_2025/constants/app_colors.dart';
 import 'package:login_app_2025/constants/app_theme.dart';
 
 class RoundBotton extends StatelessWidget {
@@ -12,15 +13,19 @@ class RoundBotton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: ontap,
-      child: Container(
-        height: height,
+      child: ElevatedButton(
+        onPressed: ontap,
+        style: ButtonStyle(),
+        child: Container(
+          height: height,
 
-        decoration: ContainerTheme().containerTheme1,
+          decoration: ContainerTheme().containerTheme1,
 
-        child: Center(
-          child: loading
-              ? CircularProgressIndicator(strokeWidth: 3, color: ColorsTheme().borderColor)
-              : Text(title, style: TextsTheme().heading2sytle),
+          child: Center(
+            child: loading
+                ? CircularProgressIndicator(strokeWidth: 3, color: ColorsTheme().borderColor)
+                : Text(title, style: PastelDuskTheme.light.textTheme.titleLarge!.copyWith(color: Colors.white)),
+          ),
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_app_2025/constants/app_colors.dart';
 
 class TextsTheme {
   final heading1sytle = TextStyle(
@@ -50,7 +51,7 @@ class ColorsTheme {
 
 class ContainerTheme {
   final containerTheme1 = BoxDecoration(
-    color: Colors.white,
+    color: PastelDuskTheme.light.colorScheme.primary,
     borderRadius: BorderRadius.circular(12),
     boxShadow: [
       BoxShadow(
