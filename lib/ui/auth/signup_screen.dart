@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:login_app_2025/constants/app_colors.dart';
 import 'package:login_app_2025/constants/app_theme.dart';
 import 'package:login_app_2025/constants/app_assets.dart';
+import 'package:login_app_2025/constants/background/background_one.dart';
 import 'package:login_app_2025/ui/auth/login_screen.dart';
 import 'package:login_app_2025/utils/utils.dart';
 import 'package:login_app_2025/widgets/round_botton.dart';
@@ -72,163 +74,174 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: SingleChildScrollView(
-          child: SafeArea(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text('SigUp', style: TextsTheme().heading1sytle),
-                Image(image: AssetImage(AppAssets.logo), height: 150, width: 150),
-                SizedBox(height: 20),
-                Form(
-                  key: _formkey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Role', style: TextsTheme().heading2sytle),
-                      SizedBox(height: 5),
-
-                      // role based login dropdown
-                      Container(
-                        width: double.infinity,
-                        height: 50,
-                        padding: EdgeInsets.symmetric(horizontal: 12),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: ColorsTheme().borderColor),
-                        ),
-                        child: DropdownButton<String>(
-                          alignment: AlignmentGeometry.centerRight,
-                          style: TextsTheme().heading3sytle.copyWith(color: ColorsTheme().borderColor),
-                          dropdownColor: const Color(0xFFF5F5F7),
-                          // isDense: true,
-                          isExpanded: false,
-                          iconEnabledColor: ColorsTheme().borderColor,
-                          focusColor: const Color.fromARGB(255, 48, 38, 38),
-                          items: options.map((String dropDownStringItem) {
-                            return DropdownMenuItem<String>(
-                              value: dropDownStringItem,
-                              child: Text(
-                                dropDownStringItem,
-                                style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (newValueSelected) {
-                            setState(() {
-                              _currentItemSelected = newValueSelected!;
-                              role = newValueSelected;
-                            });
-                          },
-                          value: _currentItemSelected,
-                        ),
-                      ),
-
-                      // user name text field
-                      SizedBox(height: 20),
-                      Text('User Name', style: TextsTheme().heading2sytle),
-                      SizedBox(height: 5),
-                      TextFormField(
-                        keyboardType: TextInputType.text,
-                        controller: usernamecontroller,
-
-                        decoration: InputDecoration(
-                          hintText: 'User Name ie. sami, kashif',
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
-                          ),
-                          suffixIcon: Icon(Icons.person),
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter Username';
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(height: 20),
-                      Text('Email', style: TextsTheme().heading2sytle),
-                      SizedBox(height: 5),
-
-                      // email text field
-                      TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        controller: emailcontroller,
-                        decoration: InputDecoration(
-                          hintText: 'example@gmail.com',
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
-                          ),
-                          suffixIcon: Icon(Icons.person),
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter email';
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(height: 20),
-                      Text('Password', style: TextsTheme().heading2sytle),
-                      // password text field
-                      TextFormField(
-                        controller: passwordcontroller,
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          hintText: 'input password',
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
-                          ),
-                          suffixIcon: Icon(Icons.person),
-                        ),
-                        obscureText: true,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter password';
-                          }
-                          return null;
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 30),
-                RoundBotton(
-                  loading: loading,
-                  title: 'Sign Up',
-                  height: 50,
-                  ontap: () {
-                    if (_formkey.currentState!.validate()) {
-                      // Handle login
-                      SignUp();
-                      // Navigator.pop(context);
-                    }
-                  },
-                ),
-                SizedBox(height: 20),
-                Row(
+      // backgroundColor: Colors.white,
+      body: Stack(
+        children: [
+          const DiagonalWaveBackground2(),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: SingleChildScrollView(
+              child: SafeArea(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text('Already have an account?'),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                    // Text('SigUp', style: TextsTheme().heading1sytle),
+                    Image(image: AssetImage(AppAssets.logogif), height: 140, width: 140),
+                    SizedBox(height: 20),
+                    Form(
+                      key: _formkey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Create Your Account',
+                            style: PastelDuskTheme.light.textTheme.headlineLarge!.copyWith(
+                              fontSize: 24,
+                              fontFamily: 'manrope',
+                            ),
+                          ),
+                          SizedBox(height: 5),
+
+                          // role based login dropdown
+                          Container(
+                            width: double.infinity,
+                            height: 50,
+                            padding: EdgeInsets.symmetric(horizontal: 12),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: ColorsTheme().borderColor),
+                            ),
+                            child: DropdownButton<String>(
+                              alignment: AlignmentGeometry.centerRight,
+                              style: TextsTheme().heading3sytle.copyWith(color: ColorsTheme().borderColor),
+                              dropdownColor: const Color(0xFFF5F5F7),
+                              // isDense: true,
+                              isExpanded: false,
+                              iconEnabledColor: ColorsTheme().borderColor,
+                              focusColor: const Color.fromARGB(255, 48, 38, 38),
+                              items: options.map((String dropDownStringItem) {
+                                return DropdownMenuItem<String>(
+                                  value: dropDownStringItem,
+                                  child: Text(
+                                    dropDownStringItem,
+                                    style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: (newValueSelected) {
+                                setState(() {
+                                  _currentItemSelected = newValueSelected!;
+                                  role = newValueSelected;
+                                });
+                              },
+                              value: _currentItemSelected,
+                            ),
+                          ),
+
+                          // user name text field
+                          SizedBox(height: 20),
+                          // Text('User Name', style: TextsTheme().heading2sytle),
+                          SizedBox(height: 5),
+                          TextFormField(
+                            keyboardType: TextInputType.text,
+                            controller: usernamecontroller,
+
+                            decoration: InputDecoration(
+                              labelText: 'User Name ie. sami, kashif',
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
+                              ),
+                              suffixIcon: Icon(Icons.person),
+                            ),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter Username';
+                              }
+                              return null;
+                            },
+                          ),
+                          SizedBox(height: 20),
+                          // Text('Email', style: TextsTheme().heading2sytle),
+                          SizedBox(height: 5),
+
+                          // email text field
+                          TextFormField(
+                            keyboardType: TextInputType.emailAddress,
+                            controller: emailcontroller,
+                            decoration: InputDecoration(
+                              labelText: 'Email',
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
+                              ),
+                              suffixIcon: Icon(Icons.person),
+                            ),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter email';
+                              }
+                              return null;
+                            },
+                          ),
+                          SizedBox(height: 20),
+                          // Text('Password', style: TextsTheme().heading2sytle),
+                          // password text field
+                          TextFormField(
+                            controller: passwordcontroller,
+                            keyboardType: TextInputType.text,
+                            decoration: InputDecoration(
+                              labelText: 'Add Password',
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
+                              ),
+                              suffixIcon: Icon(Icons.person),
+                            ),
+                            obscureText: true,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter password';
+                              }
+                              return null;
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 30),
+                    RoundBotton(
+                      loading: loading,
+                      title: 'Sign Up',
+                      // height: 50,
+                      ontap: () {
+                        if (_formkey.currentState!.validate()) {
+                          // Handle login
+                          SignUp();
+                          // Navigator.pop(context);
+                        }
                       },
-                      child: Text('Login'),
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Already have an account?'),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                          },
+                          child: Text('Login'),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

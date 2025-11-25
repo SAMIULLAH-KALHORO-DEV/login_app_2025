@@ -51,16 +51,16 @@ class ColorsTheme {
 
 class ContainerTheme {
   final containerTheme1 = BoxDecoration(
-    color: PastelDuskTheme.light.colorScheme.primary,
+    color: PastelDuskTheme.light.appBarTheme.iconTheme!.color,
     borderRadius: BorderRadius.circular(12),
-    boxShadow: [
-      BoxShadow(
-        color: const Color(0x1C075B5E),
-        spreadRadius: 3, // How much the shadow spreads
-        blurRadius: 10, // How blurry the shadow is
-        // offset: Offset(3, 3), // x and y offset
-      ),
-    ],
+    // boxShadow: [
+    //   // BoxShadow(
+    //   //   color: const Color(0x1C075B5E),
+    //   //   spreadRadius: 3, // How much the shadow spreads
+    //   //   blurRadius: 10, // How blurry the shadow is
+    //   //   // offset: Offset(3, 3), // x and y offset
+    //   // ),
+    // ],
   );
 }
 

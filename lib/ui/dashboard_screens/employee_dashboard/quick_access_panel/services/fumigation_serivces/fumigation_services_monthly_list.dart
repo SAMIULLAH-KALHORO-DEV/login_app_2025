@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:login_app_2025/constants/app_colors.dart';
 import 'package:login_app_2025/constants/app_theme.dart';
+import 'package:login_app_2025/constants/background/background_one.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/quick_access_panel/services/fumigation_serivces/fumigation_service_list.dart';
 
 class FumigationServicesMonthlyList extends StatefulWidget {
@@ -30,42 +32,51 @@ class _FumigationServicesMonthlyListState extends State<FumigationServicesMonthl
 
           final items = snapshot.data!.docs;
 
-          return ListView.builder(
-            itemCount: items.length,
-            itemBuilder: (context, index) {
-              final doc = items[index];
-              final data = doc.data() as Map<String, dynamic>;
-              final monthName = data['monthname'];
+          return Stack(
+            children: [
+              const DiagonalWaveBackground2(),
+              ListView.builder(
+                itemCount: items.length,
+                itemBuilder: (context, index) {
+                  final doc = items[index];
+                  final data = doc.data() as Map<String, dynamic>;
+                  final monthName = data['monthname'];
 
-              return Card(
-                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                elevation: 2,
-                child: ListTile(
-                  title: Text(monthName, style: TextsTheme().heading2sytle),
-                  subtitle: Text(
-                    'Fumigation Services',
-                    style: TextsTheme().heading3sytle.copyWith(color: const Color(0x73000000)),
-                  ),
-
-                  trailing: IconButton(
-                    onPressed: () async {
-                      await FirebaseFirestore.instance.collection("FumigationMonthlyCard").doc(doc.id).delete();
-
-                      // Utils().toastMessage('');
-                    },
-                    icon: const Icon(Icons.delete, size: 18),
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => FumigationServiceList(monthDocId: doc.id, monthName: monthName),
+                  return Card(
+                    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    color: AppColors.surfaceBackground,
+                    elevation: 4,
+                    shadowColor: AppColors.baseAccentShadows,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    child: ListTile(
+                      title: Text(monthName, style: TextsTheme().heading2sytle),
+                      subtitle: Text(
+                        'Fumigation Services',
+                        style: TextsTheme().heading3sytle.copyWith(color: const Color(0x73000000)),
                       ),
-                    );
-                  },
-                ),
-              );
-            },
+
+                      trailing: IconButton(
+                        onPressed: () async {
+                          await FirebaseFirestore.instance.collection("FumigationMonthlyCard").doc(doc.id).delete();
+
+                          // Utils().toastMessage('');
+                        },
+                        icon: const Icon(Icons.delete, size: 18),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => FumigationServiceList(monthDocId: doc.id, monthName: monthName),
+                          ),
+                        );
+                      },
+                    ),
+
+                  );
+                },
+              ),
+            ],
           );
         },
       ),

@@ -15,12 +15,11 @@ class RoundBotton extends StatelessWidget {
       onTap: ontap,
       child: ElevatedButton(
         onPressed: ontap,
-        style: ButtonStyle(),
+        style: PastelDuskTheme.light.elevatedButtonTheme.style,
         child: Container(
           height: height,
 
-          decoration: ContainerTheme().containerTheme1,
-
+          // decoration: ContainerTheme().containerTheme1,
           child: Center(
             child: loading
                 ? CircularProgressIndicator(strokeWidth: 3, color: ColorsTheme().borderColor)

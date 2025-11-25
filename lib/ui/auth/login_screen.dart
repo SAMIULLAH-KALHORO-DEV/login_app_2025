@@ -132,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Text('Forget Password'),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 15),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -145,19 +145,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 30),
-                    InkWell(
-                      onTap: () {
+                    SizedBox(height: 15),
+                    RoundBotton(
+                      ontap: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context) => LoginWithPhoneNumber()));
                       },
-                      child: Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: Colors.black),
-                        ),
-                        child: Center(child: Text('Login with Phone number')),
-                      ),
+                      title: 'login with phone number',
                     ),
                   ],
                 ),

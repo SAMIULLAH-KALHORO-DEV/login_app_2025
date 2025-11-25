@@ -26,6 +26,7 @@ class AppColors {
   static final Color dataViz2 = hexToColor('#E0C4E7'); // Accent 1
   static final Color dataViz3 = hexToColor('#F3C7A5'); // Accent 2 (Warning)
   static final Color dataViz4 = hexToColor('#A5B8E6'); // Accent 3 (Success)
+  static final Color iconbuttonbackground = hexToColor('#B982BB');
 }
 
 // --- 3. ThemeData Definition ---
@@ -64,7 +65,7 @@ class PastelDuskTheme {
     appBarTheme: AppBarTheme(
       backgroundColor: AppColors.surfaceBackground,
       elevation: 0,
-      iconTheme: IconThemeData(color: AppColors.primaryInteraction),
+      iconTheme: IconThemeData(color: AppColors.iconbuttonbackground),
       titleTextStyle: TextStyle(color: AppColors.primaryInteraction, fontSize: 20, fontWeight: FontWeight.bold),
     ),
 

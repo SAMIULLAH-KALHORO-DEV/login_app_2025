@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login_app_2025/constants/app_theme.dart';
+import 'package:login_app_2025/constants/background/background_one.dart';
 
 import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/widgets/upcoming_events.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/widgets/profile_section.dart';
@@ -12,32 +13,36 @@ class EmployeeDashboard extends StatefulWidget {
   State<EmployeeDashboard> createState() => _EmployeeDashboardState();
 }
 
-
 class _EmployeeDashboardState extends State<EmployeeDashboard> {
-final int _selectedIndex = 0;
+  final int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ProfileSectionEmpolyee(),
-                SizedBox(height: 30),
-                Text('Quick Access View', style: TextsTheme().heading1sytle),
-                SizedBox(height: 30),
-                EmployeeRoleBasedGrid(),
-                Text('UpComing Events', style: TextsTheme().heading1sytle),
-                SizedBox(height: 30),
-                UpcomingEvents(),
-              ],
+      body: Stack(
+        children: [
+          const DiagonalWaveBackground2(),
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ProfileSectionEmpolyee(),
+                    SizedBox(height: 30),
+                    Text('Quick Access View', style: TextsTheme().heading1sytle),
+                    SizedBox(height: 30),
+                    EmployeeRoleBasedGrid(),
+                    Text('UpComing Events', style: TextsTheme().heading1sytle),
+                    SizedBox(height: 30),
+                    UpcomingEvents(),
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
+        ],
       ),
       // bottomNavigationBar: BottomNavBarEmployee(
       //   currentIndex: _selectedIndex,
