@@ -47,6 +47,7 @@ class _ProfileSectionEmpolyeeState extends State<ProfileSectionEmpolyee> {
       return 'Unknown';
     }
   }
+
   Widget build(BuildContext context) {
     return Card(
       shadowColor: AppColors.baseAccentShadows,

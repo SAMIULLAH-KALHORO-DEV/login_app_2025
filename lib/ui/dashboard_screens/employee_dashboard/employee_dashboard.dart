@@ -6,7 +6,7 @@ import 'package:login_app_2025/constants/background/background_one.dart';
 import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/widgets/upcoming_events.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/widgets/card_section.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/widgets/profile_section.dart';
-import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/widgets/role_base_grid.dart';
+import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/widgets/role_base_grid.dart' hide AppColors;
 
 class EmployeeDashboard extends StatefulWidget {
   const EmployeeDashboard({super.key});
@@ -32,13 +32,16 @@ class _EmployeeDashboardState extends State<EmployeeDashboard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ProfileSectionEmpolyee(),
-                    SizedBox(height: 30),
+                    SizedBox(height: 10),
                     // Text('Quick Access View', style: TextsTheme().heading1sytle),
                     // PriorityCardRow(),
                     PriorityCardRow(),
-                    SizedBox(height: 30),
+                    SizedBox(height: 10),
                     EmployeeRoleBasedGrid(),
-                    Text('UpComing Events', style: TextsTheme().heading1sytle),
+                    Text(
+                      'UpComing Events',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.primaryText),
+                    ),
                     SizedBox(height: 30),
                     UpcomingEvents(),
                   ],

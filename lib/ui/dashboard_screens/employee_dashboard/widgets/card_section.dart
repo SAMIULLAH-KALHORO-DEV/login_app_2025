@@ -16,9 +16,22 @@ class PriorityCardRow extends StatelessWidget {
             children: [
               _NextTaskCard(isMobile: true),
               const SizedBox(height: 16),
-              SizedBox(
-                width: constraints.maxWidth,
-                child: Row(children: [_ProgressCard(), const SizedBox(width: 16), _AlertsCard()]),
+              Row(
+                children: [
+                  Expanded(
+                    child: AspectRatio(
+                      aspectRatio: 1.2, // makes width = height
+                      child: _ProgressCard(),
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Expanded(
+                    child: AspectRatio(
+                      aspectRatio: 1.2, // same as above
+                      child: _AlertsCard(),
+                    ),
+                  ),
+                ],
               ),
             ],
           );
@@ -100,7 +113,7 @@ class _ProgressCard extends StatelessWidget {
 
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -110,16 +123,17 @@ class _ProgressCard extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             SizedBox(
-              height: 70,
-              width: 70,
+              height: 50,
+              width: 50,
               child: Stack(
                 alignment: Alignment.center,
                 children: [
                   CircularProgressIndicator(
                     value: completionRate,
-                    strokeWidth: 6,
+                    strokeWidth: 4,
+                    color: AppColors.baseAccentShadows,
                     backgroundColor: AppColors.baseAccentShadows,
-                    valueColor: AlwaysStoppedAnimation<Color>(AppColors.dataViz4),
+                    valueColor: AlwaysStoppedAnimation<Color>(AppColors.dataViz3),
                   ),
                   Text(
                     '${(completionRate * 100).toInt()}%',
@@ -148,13 +162,13 @@ class _AlertsCard extends StatelessWidget {
     const alertCount = 2;
 
     return Card(
-      color: AppColors.primaryInteraction.withOpacity(0.1),
+      // color: AppColors.primaryInteraction.withOpacity(0.1),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
-        side: BorderSide(color: AppColors.primaryInteraction, width: 1.5),
+        // side: BorderSide(color: AppColors.primaryInteraction, width: 1.5),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
