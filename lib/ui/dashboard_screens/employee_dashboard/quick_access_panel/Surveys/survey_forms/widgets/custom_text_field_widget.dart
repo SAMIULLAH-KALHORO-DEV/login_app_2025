@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:login_app_2025/constants/app_colors.dart';
 import 'package:login_app_2025/constants/app_theme.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 
@@ -34,13 +34,11 @@ class CustomTextField extends StatefulWidget {
 class _CustomTextFieldState extends State<CustomTextField> {
   String currentValue = "";
 
-
   @override
   Widget build(BuildContext context, {String? value}) {
     final isUrdu = RegExp(r'[\u0600-\u06FF]').hasMatch(value ?? '');
 
     return TextFormField(
-      
       // style: TextStyle(fontFamily: 'urdu_font'),
       obscureText: widget.obsureText,
       style: TextStyle(
@@ -64,7 +62,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         hintText: widget.hintText,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
+          borderSide: BorderSide(color: AppColors.cardBorderColor, width: 1.5),
         ),
         suffixIcon: widget.isDatePicker
             ? IconButton(

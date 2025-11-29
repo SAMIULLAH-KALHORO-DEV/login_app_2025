@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login_app_2025/constants/app_colors.dart';
+import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/quick_access_panel/services/fumigation_serivces/fumigation_form.dart';
 
 /// Reusable Priority Card Row widget for dashboard sections
 class PriorityCardRow extends StatelessWidget {
@@ -88,7 +89,9 @@ class _NextTaskCard extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => FumigationForm()));
+                },
                 icon: const Icon(Icons.play_arrow),
                 label: const Text('START JOB'),
               ),

@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field
+
 import 'package:flutter/material.dart';
 import 'package:login_app_2025/constants/app_colors.dart';
 import 'package:login_app_2025/constants/app_theme.dart';
@@ -7,6 +9,7 @@ import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/widgets/upco
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/widgets/card_section.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/widgets/profile_section.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/widgets/role_base_grid.dart' hide AppColors;
+import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/widgets/upcoming_events.dart';
 
 class EmployeeDashboard extends StatefulWidget {
   const EmployeeDashboard({super.key});
@@ -43,7 +46,7 @@ class _EmployeeDashboardState extends State<EmployeeDashboard> {
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.primaryText),
                     ),
                     SizedBox(height: 30),
-                    UpcomingEvents(),
+                    UpcomingEventsCard(),
                   ],
                 ),
               ),

@@ -26,6 +26,8 @@ class AppColors {
   static final Color dataViz2 = hexToColor('#B3D9FF'); // Light Blue (Supporting Data/Light Accent)
   static final Color dataViz3 = hexToColor('#FFB74D'); // Amber Orange (Warning/Pending Status)
   static final Color dataViz4 = hexToColor('#4CAF50'); // Service Green (Success/Complete Status)
+  static const Color danger = Color(0xFFD32F2F); // Red
+  static const Color info = Color(0xFF1E88E5); 
 
   // --- Container / Card Theme Colors ---
 

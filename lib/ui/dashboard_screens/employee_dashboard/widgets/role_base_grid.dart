@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_app_2025/constants/app_colors.dart';
-import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/quick_access_panel/Surveys/survey_forms/submit_survey_lists/submitted_survey_lists.dart';
-import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/assigned_jobs/assigned_jobs.dart';
+import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/quick_access_panel/annoucements/annoucements.dart';
+import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/quick_access_panel/assigned_jobs/assigned_jobs.dart';
+import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/quick_access_panel/compliance_and_safety/compliance_and_safety.dart'
+    hide AppColors;
+import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/quick_access_panel/inventory_requests/inventory_requests.dart';
+import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/quick_access_panel/my_performance/my_performance.dart';
+import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/quick_access_panel/timer_sheet/timer_sheet.dart';
 // Note: Assuming these imports resolve the necessary colors, themes, and navigation targets
 // These imports suggest this file is part of a larger project structure.
 // import 'package:login_app_2025/constants/app_colors.dart';
@@ -101,23 +106,23 @@ class _EmployeeRoleBasedGridState extends State<EmployeeRoleBasedGrid> {
         break;
       case 'Inventory Requests':
         // Mapped to a Services list placeholder
-        destinationPage = FumigationServicesMonthlyList();
+        destinationPage = InventoryRequestListPage();
         break;
       case 'Announcements':
         // Mapped to a Notifications/Submitted List placeholder
-        destinationPage = SubmittedSurveyList();
+        destinationPage = AnnouncementsPage();
         break;
       case 'Compliance & Safety':
         // Mapped to a Survey Form placeholder
-        destinationPage = SurveyForm1();
+        destinationPage = ComplianceSafetyPage();
         break;
       case 'My Performance':
         // Mapped to an Analytics/Submitted List placeholder
-        destinationPage = SubmittedSurveyList();
+        destinationPage = MyPerformancePage();
         break;
       case 'Timesheet':
         // Mapped to a Submitted Survey List placeholder
-        destinationPage = SubmittedSurveyList();
+        destinationPage = TimesheetPage();
         break;
     }
 
