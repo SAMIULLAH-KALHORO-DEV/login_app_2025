@@ -121,6 +121,7 @@ class TimesheetPage extends StatelessWidget {
 
   Widget _buildActionButton(BuildContext context) {
     // Logic to determine button label/color based on timesheet status
+    // ignore: unused_local_variable
     const bool isReadyToSubmit = true;
 
     return Container(
@@ -134,11 +135,9 @@ class TimesheetPage extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton.icon(
-          onPressed: isReadyToSubmit
-              ? () {
+          onPressed: () {
                   // Submit Timesheet Action
-                }
-              : null,
+                },
           icon: const Icon(CupertinoIcons.doc_checkmark_fill, size: 20),
           label: const Text('SUBMIT TIMESHEET FOR APPROVAL'),
           style: ElevatedButton.styleFrom(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:login_app_2025/constants/app_colors.dart';
-import 'package:login_app_2025/constants/app_theme.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -36,12 +35,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context, {String? value}) {
+    // ignore: deprecated_member_use
     final isUrdu = RegExp(r'[\u0600-\u06FF]').hasMatch(value ?? '');
 
     return TextFormField(
       // style: TextStyle(fontFamily: 'urdu_font'),
       obscureText: widget.obsureText,
       style: TextStyle(
+        // ignore: deprecated_member_use
         fontFamily: RegExp(r'[\u0600-\u06FF]').hasMatch(widget.controller!.text)
             ? 'urdu_font' // your Urdu font
             : 'english_font', // your English font

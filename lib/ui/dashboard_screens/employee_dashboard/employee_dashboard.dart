@@ -6,7 +6,7 @@ import 'package:login_app_2025/constants/background/background_one.dart';
 
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/widgets/card_section.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/widgets/profile_section.dart';
-import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/widgets/role_base_grid.dart' hide AppColors;
+import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/widgets/role_base_grid.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/widgets/upcoming_events.dart';
 
 class EmployeeDashboard extends StatefulWidget {
