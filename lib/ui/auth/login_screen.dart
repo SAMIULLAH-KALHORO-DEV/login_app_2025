@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:login_app_2025/constants/app_assets.dart';
 import 'package:login_app_2025/constants/app_colors.dart';
-import 'package:login_app_2025/constants/app_theme.dart';
 import 'package:login_app_2025/constants/background/background_one.dart';
 import 'package:login_app_2025/constants/validators.dart';
 import 'package:login_app_2025/ui/auth/forget_password_screen.dart';

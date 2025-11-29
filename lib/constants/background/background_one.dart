@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:login_app_2025/constants/app_colors.dart';
-import 'dart:math' show pi;
 
 /// A custom widget that draws a clean, corporate geometric pattern
 /// using stacked rectangles and lines in the brand colors.
@@ -19,6 +18,7 @@ class _GeometricBlockPainter extends CustomPainter {
     // --- 1. Large, Subtle Light Blue Block (Base Accent) ---
     final lightBluePaint = Paint()
       ..color = AppColors.dataViz2
+          // ignore: deprecated_member_use
           .withOpacity(0.5) // Light Blue support color
       ..style = PaintingStyle.fill;
 
@@ -32,8 +32,10 @@ class _GeometricBlockPainter extends CustomPainter {
     canvas.drawPath(path1, lightBluePaint);
 
     // --- 2. Corporate Blue Accent Line (Stability) ---
+    // ignore: unused_local_variable
     final blueLinePaint = Paint()
       ..color = AppColors.dataViz1
+          // ignore: deprecated_member_use
           .withOpacity(0.7) // Corporate Blue
       ..strokeWidth = 3.0
       ..style = PaintingStyle.stroke;
@@ -48,6 +50,7 @@ class _GeometricBlockPainter extends CustomPainter {
     // --- 3. Shaheen Red Interaction Corner (Focus/Action) ---
     final redPaint = Paint()
       ..color = AppColors.primaryInteraction
+          // ignore: deprecated_member_use
           .withOpacity(0.8) // Shaheen Red
       ..style = PaintingStyle.fill;
 

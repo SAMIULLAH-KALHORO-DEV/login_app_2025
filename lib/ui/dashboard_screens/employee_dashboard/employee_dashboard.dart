@@ -2,10 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:login_app_2025/constants/app_colors.dart';
-import 'package:login_app_2025/constants/app_theme.dart';
 import 'package:login_app_2025/constants/background/background_one.dart';
 
-import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/widgets/upcoming_events.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/widgets/card_section.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/widgets/profile_section.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/widgets/role_base_grid.dart' hide AppColors;

@@ -175,6 +175,7 @@ class MyPerformancePage extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.surfaceBackground,
         borderRadius: BorderRadius.circular(10),
+        // ignore: deprecated_member_use
         border: Border.all(color: AppColors.secondaryTextHint.withOpacity(0.3)),
       ),
       child: Center(
