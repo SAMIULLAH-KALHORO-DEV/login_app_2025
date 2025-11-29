@@ -15,13 +15,14 @@ class EmployeeRoleBasedGrid extends StatefulWidget {
 
 class _EmployeeRoleBasedGridState extends State<EmployeeRoleBasedGrid> {
   final List<Map<String, dynamic>> gridItems = [
-    {'icon': CupertinoIcons.bag_badge_plus, 'title': 'Surveys'},
-    {'icon': Icons.stacked_bar_chart, 'title': 'Services'},
-    {'icon': CupertinoIcons.time, 'title': 'Schedule'},
-    {'icon': Icons.analytics, 'title': 'Analytics'},
-    {'icon': Icons.notifications, 'title': 'Notifications'},
-    {'icon': Icons.person, 'title': 'Profile'},
+    {'icon': CupertinoIcons.chart_bar_square, 'title': 'Surveys'}, // survey/chart
+    {'icon': CupertinoIcons.square_list, 'title': 'Services'}, // services/list
+    {'icon': CupertinoIcons.clock, 'title': 'Schedule'}, // schedule/time
+    {'icon': CupertinoIcons.chart_pie, 'title': 'Analytics'}, // analytics
+    {'icon': CupertinoIcons.bell, 'title': 'Notifications'}, // notifications
+    {'icon': CupertinoIcons.person, 'title': 'Profile'}, // profile
   ];
+
   void _onItemTap(String title) {
     switch (title) {
       case 'Surveys':
@@ -53,10 +54,10 @@ class _EmployeeRoleBasedGridState extends State<EmployeeRoleBasedGrid> {
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, // 3 icons per row
-          mainAxisSpacing: 16,
-          crossAxisSpacing: 16,
-          childAspectRatio: 0.9, // Adjust height for icon + title
+          crossAxisCount: 4, // 4 icons per row
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
+          childAspectRatio: .7, // Adjust height for icon + title
         ),
         itemCount: gridItems.length,
         itemBuilder: (context, index) {
@@ -67,13 +68,23 @@ class _EmployeeRoleBasedGridState extends State<EmployeeRoleBasedGrid> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: ContainerTheme().containerTheme1,
-                  child: Icon(item['icon'], size: 40, color: Colors.white),
+                Card(
+                  color: AppColors.cardDefaultBackground,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  elevation: 3,
+                  shadowColor: AppColors.baseAccentShadows,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Icon(item['icon'], size: 40, color: AppColors.dataViz3),
+
+                        SizedBox(height: 8),
+                        Text(item['title'], style: TextsTheme().heading3sytle),
+                      ],
+                    ),
+                  ),
                 ),
-                SizedBox(height: 8),
-                Text(item['title'], style: TextsTheme().heading3sytle),
               ],
             ),
           );

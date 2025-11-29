@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          const DiagonalWaveBackground2(),
+          const GeometricBlockBackground(),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: SafeArea(
@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     SizedBox(height: 20),
                     // company logo
-                    Image(image: AssetImage(AppAssets.logogif), height: 140, width: 140),
+                    Image(image: AssetImage(AppAssets.loginImage), height: 170, width: 170),
 
                     Text('Welcome Back!', style: PastelDuskTheme.light.textTheme.displayLarge!.copyWith(fontSize: 24)),
                     SizedBox(height: 20),
@@ -91,9 +91,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                             decoration: InputDecoration(
                               labelText: 'Email',
+                              labelStyle: TextStyle(color: AppColors.secondaryTextHint),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
+                                borderSide: BorderSide(color: AppColors.cardBorderColor, width: 1),
                               ),
                             ),
                           ),
@@ -106,9 +107,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             controller: passwordController,
                             decoration: InputDecoration(
                               labelText: 'Password',
+                              labelStyle: TextStyle(color: AppColors.secondaryTextHint),
+
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
+                                borderSide: BorderSide(color: AppColors.cardBorderColor, width: 1),
                               ),
                             ),
 
@@ -152,6 +155,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       title: 'login with phone number',
                     ),
+                    SizedBox(height: 40),
+                    Text(
+                      'Shaheen Services Pvt Ltd. All Rights Reserved @2025',
+                      style: PastelDuskTheme.light.textTheme.displaySmall!.copyWith(
+                        color: AppColors.secondaryTextHint,
+                        fontSize: 12,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 20),
                   ],
                 ),
               ),

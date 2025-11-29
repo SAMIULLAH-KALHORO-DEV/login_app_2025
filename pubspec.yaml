@@ -32,18 +32,19 @@ dependencies:
     sdk: flutter
   calendar_date_picker2: ^2.0.1
   cloud_firestore: ^6.0.2
+  connectivity_plus: ^7.0.0
   cupertino_icons: ^1.0.8
   dropdown_search: ^6.0.2
   firebase_auth: ^6.1.0
   firebase_core: ^4.1.1
   firebase_database: ^12.0.2
   firebase_storage: ^13.0.2
+  flutter_riverpod: ^3.0.3
   fluttertoast: ^9.0.0
   image_picker: ^1.2.0
   permission_handler: ^12.0.1
   provider: ^6.1.5+1
   riverpod: ^3.0.3
-  flutter_riverpod: ^3.0.3
 
 dev_dependencies:
   flutter_test:

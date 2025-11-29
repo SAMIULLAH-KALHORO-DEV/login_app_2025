@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:login_app_2025/constants/app_assets.dart';
 import 'package:login_app_2025/constants/app_theme.dart';
 import 'package:login_app_2025/constants/background/background_one.dart';
 import 'package:login_app_2025/constants/survey_forms_texts/survey_form1_texts.dart';
@@ -63,7 +62,7 @@ class _SurveyForm1State extends State<SurveyForm1> {
 
       body: Stack(
         children: [
-          const DiagonalWaveBackground2(),
+          const GeometricBlockBackground(),
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(8.0),

@@ -34,7 +34,7 @@ class _FumigationServicesMonthlyListState extends State<FumigationServicesMonthl
 
           return Stack(
             children: [
-              const DiagonalWaveBackground2(),
+              const GeometricBlockBackground(),
               ListView.builder(
                 itemCount: items.length,
                 itemBuilder: (context, index) {

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 // --- 1. Hex Color Utility ---
-
-/// Converts a hex code string (e.g., "#493B7A") to a Flutter Color object.
+/// Converts a hex code string (e.g., "#C93030") to a Flutter Color object.
 Color hexToColor(String hexCode) {
   // Remove the '#' if present
   final hex = hexCode.replaceAll('#', '');
@@ -11,24 +10,37 @@ Color hexToColor(String hexCode) {
   return Color(int.parse('FF$hex', radix: 16));
 }
 
-// --- 2. Color Constants (Based on Theme Guide) ---
+// --- Color Constants (Based on Shaheen Corporate & Service Theme) ---
 
 class AppColors {
   // Core Palette
-  static final Color primaryInteraction = hexToColor('#493B7A'); // Deep Primary/Base
-  static final Color surfaceBackground = hexToColor('#F5E0F2'); // Primary/Background
-  static final Color baseAccentShadows = hexToColor('#E7D6F5'); // Background Gradient
-  static final Color primaryText = hexToColor('#333333'); // Primary Text
-  static final Color secondaryTextHint = hexToColor('#A65E9A'); // Secondary Text/Hint
+  // Based on Shaheen Logo Red (#C93030) and clean, high-contrast surfaces.
+  static final Color primaryInteraction = hexToColor('#C93030'); // Shaheen Red (Primary Action/Buttons, Branding)
+  static final Color surfaceBackground = hexToColor('#FFFFFF'); // Pure White (Main Screen Background)
+  static final Color baseAccentShadows = hexToColor('#F5F5F5'); // Light Gray (Subtle Accent/Shadows)
+  static final Color primaryText = hexToColor('#262626'); // Near-Black (Primary Text for readability)
+  static final Color secondaryTextHint = hexToColor('#7D7D7D'); // Medium Gray (Secondary Text/Hints/Inactive Icons)
 
   // Data & Status Colors
-  static final Color dataViz1 = hexToColor('#A65E9A'); // Accent 4
-  static final Color dataViz2 = hexToColor('#E0C4E7'); // Accent 1
-  static final Color dataViz3 = hexToColor('#F3C7A5'); // Accent 2 (Warning)
-  static final Color dataViz4 = hexToColor('#A5B8E6'); // Accent 3 (Success)
-  static final Color iconbuttonbackground = hexToColor('#B982BB');
-}
+  static final Color dataViz1 = hexToColor('#0074D9'); // Corporate Blue (Main Data/Charts, Stability)
+  static final Color dataViz2 = hexToColor('#B3D9FF'); // Light Blue (Supporting Data/Light Accent)
+  static final Color dataViz3 = hexToColor('#FFB74D'); // Amber Orange (Warning/Pending Status)
+  static final Color dataViz4 = hexToColor('#4CAF50'); // Service Green (Success/Complete Status)
 
+  // --- Container / Card Theme Colors ---
+
+  /// The default light background color for cards and containers.
+  static final Color cardDefaultBackground = surfaceBackground;
+
+  /// A slightly tinted background for alternate containers or sections.
+  static final Color cardAccentBackground = dataViz2.withOpacity(0.5);
+
+  /// The color used for shadows beneath cards.
+  static final Color cardShadowColor = primaryInteraction.withOpacity(0.1);
+
+  /// A color for borders or outlines on containers.
+  static final Color cardBorderColor = dataViz1.withOpacity(0.5);
+}
 // --- 3. ThemeData Definition ---
 
 class PastelDuskTheme {
@@ -45,7 +57,6 @@ class PastelDuskTheme {
     colorScheme: ColorScheme.light(
       primary: AppColors.primaryInteraction,
       surface: AppColors.surfaceBackground,
-      background: AppColors.surfaceBackground,
       secondary: AppColors.secondaryTextHint, // Using secondary for lighter actions/accents
     ),
 
@@ -65,7 +76,7 @@ class PastelDuskTheme {
     appBarTheme: AppBarTheme(
       backgroundColor: AppColors.surfaceBackground,
       elevation: 0,
-      iconTheme: IconThemeData(color: AppColors.iconbuttonbackground),
+      iconTheme: IconThemeData(color: AppColors.primaryInteraction),
       titleTextStyle: TextStyle(color: AppColors.primaryInteraction, fontSize: 20, fontWeight: FontWeight.bold),
     ),
 
@@ -76,6 +87,16 @@ class PastelDuskTheme {
       shadowColor: AppColors.baseAccentShadows,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     ),
+
+    // Cointainer Styling
+  
+    // Bottom Navigation Bar Styling
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: AppColors.surfaceBackground,
+      selectedItemColor: AppColors.primaryInteraction,
+      unselectedItemColor: AppColors.secondaryTextHint,
+    ),
+
 
     // Button Styling
     elevatedButtonTheme: ElevatedButtonThemeData(

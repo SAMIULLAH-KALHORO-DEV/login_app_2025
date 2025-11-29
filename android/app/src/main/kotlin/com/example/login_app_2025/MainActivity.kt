@@ -2,4 +2,4 @@ package com.example.login_app_2025
 
 import io.flutter.embedding.android.FlutterActivity
 
-class MainActivity : FlutterActivity()
+class MainActivity : FlutterActivity(){}

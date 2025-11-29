@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:login_app_2025/constants/app_colors.dart';
 import 'package:login_app_2025/constants/app_theme.dart';
 import 'package:login_app_2025/constants/background/background_one.dart';
 
 import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/widgets/upcoming_events.dart';
+import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/widgets/card_section.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/widgets/profile_section.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/widgets/role_base_grid.dart';
 
@@ -21,7 +23,7 @@ class _EmployeeDashboardState extends State<EmployeeDashboard> {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          const DiagonalWaveBackground2(),
+          const GeometricBlockBackground(),
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(10),
@@ -31,7 +33,9 @@ class _EmployeeDashboardState extends State<EmployeeDashboard> {
                   children: [
                     ProfileSectionEmpolyee(),
                     SizedBox(height: 30),
-                    Text('Quick Access View', style: TextsTheme().heading1sytle),
+                    // Text('Quick Access View', style: TextsTheme().heading1sytle),
+                    // PriorityCardRow(),
+                    PriorityCardRow(),
                     SizedBox(height: 30),
                     EmployeeRoleBasedGrid(),
                     Text('UpComing Events', style: TextsTheme().heading1sytle),
@@ -66,6 +70,24 @@ class _EmployeeDashboardState extends State<EmployeeDashboard> {
       //     }
       //   },
       // ),
+
+      // This implements '3. Bottom Navigation Bar'
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: AppColors.surfaceBackground,
+        selectedItemColor: AppColors.primaryInteraction, // Shaheen Red
+        unselectedItemColor: AppColors.secondaryTextHint,
+        currentIndex: 0, // Dashboard is active
+        type: BottomNavigationBarType.fixed,
+        onTap: (index) {
+          /* Navigation logic goes here */
+        },
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: 'Dashboard'),
+          BottomNavigationBarItem(icon: Icon(Icons.checklist), label: 'Tasks'),
+          BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: 'Schedule'),
+          BottomNavigationBarItem(icon: Icon(Icons.menu_book), label: 'Resources'),
+        ],
+      ),
     );
   }
 }

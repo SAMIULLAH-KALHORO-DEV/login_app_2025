@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -46,10 +47,10 @@ class _ProfileSectionEmpolyeeState extends State<ProfileSectionEmpolyee> {
       return 'Unknown';
     }
   }
-
-  @override
   Widget build(BuildContext context) {
     return Card(
+      shadowColor: AppColors.baseAccentShadows,
+
       color: PastelDuskTheme.light.cardColor,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -77,16 +78,30 @@ class _ProfileSectionEmpolyeeState extends State<ProfileSectionEmpolyee> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
+
                       children: [
+                        Text('Welcome Back!'),
                         FutureBuilder<String>(
                           future: getUsername(FirebaseAuth.instance.currentUser!.uid),
                           builder: (context, snapshot) {
                             if (snapshot.connectionState == ConnectionState.waiting) {
-                              return Text('Loading...', style: TextsTheme().heading2sytle);
+                              return Text(
+                                'Loading...',
+                                style: PastelDuskTheme.light.textTheme.titleLarge!.copyWith(fontSize: 20),
+                              );
                             } else if (snapshot.hasError) {
-                              return Text('Error', style: TextsTheme().heading2sytle);
+                              return Text(
+                                'Error',
+                                style: PastelDuskTheme.light.textTheme.titleLarge!.copyWith(fontSize: 20),
+                              );
                             } else {
-                              return Text(snapshot.data ?? 'Unknown', style: TextsTheme().heading2sytle);
+                              return Text(
+                                snapshot.data ?? 'Unknown',
+                                style: PastelDuskTheme.light.textTheme.titleLarge!.copyWith(
+                                  fontSize: 20,
+                                  color: AppColors.primaryText,
+                                ),
+                              );
                             }
                           },
                         ),
@@ -101,6 +116,20 @@ class _ProfileSectionEmpolyeeState extends State<ProfileSectionEmpolyee> {
                               return Text(snapshot.data ?? 'Unknown', style: TextsTheme().heading3sytle);
                             }
                           },
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "Status:",
+                              style: TextStyle(color: AppColors.secondaryTextHint, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              "Online",
+                              style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(width: 6),
+                            Icon(Icons.circle, size: 12, color: Colors.green),
+                          ],
                         ),
                       ],
                     ),
@@ -124,21 +153,6 @@ class _ProfileSectionEmpolyeeState extends State<ProfileSectionEmpolyee> {
               ],
             ),
             SizedBox(height: 20),
-            TextFormField(
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                labelText: 'Search',
-                suffixIcon: Icon(CupertinoIcons.search),
-
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-              ),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter email';
-                }
-                return null;
-              },
-            ),
           ],
         ),
       ),

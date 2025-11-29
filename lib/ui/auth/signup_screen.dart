@@ -77,7 +77,7 @@ class _SignupScreenState extends State<SignupScreen> {
       // backgroundColor: Colors.white,
       body: Stack(
         children: [
-          const DiagonalWaveBackground2(),
+          const GeometricBlockBackground(),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: SingleChildScrollView(

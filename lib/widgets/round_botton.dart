@@ -16,7 +16,7 @@ class RoundBotton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: ontap,
         style: PastelDuskTheme.light.elevatedButtonTheme.style,
-        child: Container(
+        child: SizedBox(
           height: height,
 
           // decoration: ContainerTheme().containerTheme1,
