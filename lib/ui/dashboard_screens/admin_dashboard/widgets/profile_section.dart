@@ -1,139 +1,195 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:login_app_2025/constants/app_colors.dart';
 import 'package:login_app_2025/constants/app_theme.dart';
 import 'package:login_app_2025/ui/auth/login_screen.dart';
 import 'package:login_app_2025/utils/utils.dart';
 
-class ProfileSection extends StatefulWidget {
-  const ProfileSection({super.key});
+class ProfileSectionAdmin extends StatefulWidget {
+  const ProfileSectionAdmin({super.key});
 
   @override
-  State<ProfileSection> createState() => _ProfileSectionState();
+  State<ProfileSectionAdmin> createState() => _ProfileSectionAdminState();
 }
 
-class _ProfileSectionState extends State<ProfileSection> {
+class _ProfileSectionAdminState extends State<ProfileSectionAdmin> {
   final auth = FirebaseAuth.instance;
-  final refuser = FirebaseFirestore.instance.collection('Users');
-
+  final usersCollection = FirebaseFirestore.instance.collection('Users');
   final editController = TextEditingController();
 
   Future<String> getUsername(String uid) async {
-    final snapshot = await refuser.doc(uid).get();
-    if (snapshot.exists) {
-      return snapshot.get('username').toString();
-    } else {
+    try {
+      final doc = await usersCollection.doc(uid).get();
+      if (doc.exists) {
+        final data = doc.data();
+        return (data != null && data['username'] != null) ? data['username'].toString() : 'Unknown';
+      } else {
+        return 'Unknown';
+      }
+    } catch (e) {
       return 'Unknown';
     }
   }
 
   Future<String> getRole(String uid) async {
-    final snapshot = await refuser.doc(uid).get();
-    if (snapshot.exists) {
-      return snapshot.get('role').toString();
-    } else {
+    try {
+      final doc = await usersCollection.doc(uid).get();
+      if (doc.exists) {
+        final data = doc.data();
+        return (data != null && data['role'] != null) ? data['role'].toString() : 'Unknown';
+      } else {
+        return 'Unknown';
+      }
+    } catch (e) {
       return 'Unknown';
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(8),
-      decoration: ContainerTheme().containerTheme1,
-      child: Column(
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 50,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      border: BoxBorder.all(color: ColorsTheme().borderColor),
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(30),
+    return Card(
+      shadowColor: AppColors.baseAccentShadows,
+
+      color: PastelDuskTheme.light.cardColor,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                        border: BoxBorder.all(color: ColorsTheme().borderColor),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Icon(CupertinoIcons.person),
                     ),
-                    child: Icon(CupertinoIcons.person),
-                  ),
-                  SizedBox(width: 10),
+                    SizedBox(width: 10),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+
+                      children: [
+                        Text('Welcome Back!'),
+                        FutureBuilder<String>(
+                          future: getUsername(FirebaseAuth.instance.currentUser!.uid),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return Text(
+                                'Loading...',
+                                style: PastelDuskTheme.light.textTheme.titleLarge!.copyWith(fontSize: 20),
+                              );
+                            } else if (snapshot.hasError) {
+                              return Text(
+                                'Error',
+                                style: PastelDuskTheme.light.textTheme.titleLarge!.copyWith(fontSize: 20),
+                              );
+                            } else {
+                              return Text(
+                                snapshot.data ?? 'Unknown',
+                                style: PastelDuskTheme.light.textTheme.titleLarge!.copyWith(
+                                  fontSize: 20,
+                                  color: AppColors.primaryText,
+                                ),
+                              );
+                            }
+                          },
+                        ),
+                        FutureBuilder<String>(
+                          future: getRole(FirebaseAuth.instance.currentUser!.uid),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return Text('Loading...', style: TextsTheme().heading3sytle);
+                            } else if (snapshot.hasError) {
+                              return Text('Error', style: TextsTheme().heading3sytle);
+                            } else {
+                              return Text(snapshot.data ?? 'Unknown', style: TextsTheme().heading3sytle);
+                            }
+                          },
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "Status:",
+                              style: TextStyle(color: AppColors.secondaryTextHint, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              "Online",
+                              style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(width: 6),
+                            Icon(Icons.circle, size: 12, color: Colors.green),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+
+                IconButton(
+                  onPressed: () {
+                    auth
+                        .signOut()
+                        .then((value) {
+                          // ignore: use_build_context_synchronously
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                        })
+                        .onError((error, stackTrace) {
+                          Utils().toastMessage(error.toString());
+                        });
+                  },
+                  icon: Icon(Icons.logout_outlined, color: ColorsTheme().iconColor),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: AppColors.dataViz4.withAlpha(200),
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 5, offset: const Offset(0, 3))],
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      FutureBuilder<String>(
-                        future: getUsername(FirebaseAuth.instance.currentUser!.uid),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
-                            return Text('Loading...', style: TextsTheme().heading2sytle);
-                          } else if (snapshot.hasError) {
-                            return Text('Error', style: TextsTheme().heading2sytle);
-                          } else {
-                            return Text(snapshot.data ?? 'Unknown', style: TextsTheme().heading2sytle);
-                          }
-                        },
+                      Text(
+                        'Team Overview',
+                        style: Theme.of(
+                          context,
+                        ).textTheme.titleLarge!.copyWith(color: Colors.white, fontWeight: FontWeight.w300),
                       ),
-                      FutureBuilder<String>(
-                        future: getRole(FirebaseAuth.instance.currentUser!.uid),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
-                            return Text('Loading...', style: TextsTheme().heading3sytle);
-                          } else if (snapshot.hasError) {
-                            return Text('Error', style: TextsTheme().heading3sytle);
-                          } else {
-                            return Text(snapshot.data ?? 'Unknown', style: TextsTheme().heading3sytle);
-                          }
-                        },
+                      const SizedBox(height: 4),
+                      Text(
+                        '24 Active Field Employees',
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodyLarge!.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
+                  const Icon(CupertinoIcons.group_solid, color: Colors.white, size: 40),
                 ],
               ),
-
-              IconButton(
-                onPressed: () {
-                  auth
-                      .signOut()
-                      .then((value) {
-                        // 🚨 FIXED: Use pushAndRemoveUntil to clear the navigation stack
-                        // This ensures a clean slate when the next user logs in.
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(builder: (context) => LoginScreen()),
-                          (Route<dynamic> route) => false, // Prevents navigating back to dashboard
-                        );
-                      })
-                      .onError((error, stackTrace) {
-                        Utils().toastMessage(error.toString());
-                      });
-                },
-                icon: Icon(Icons.logout_outlined, color: ColorsTheme().iconColor),
-              ),
-            ],
-          ),
-          SizedBox(height: 20),
-          TextFormField(
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-              labelText: 'Search',
-              suffixIcon: Icon(CupertinoIcons.search),
-
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             ),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter email';
-              }
-              return null;
-            },
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

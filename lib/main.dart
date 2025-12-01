@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'; // <-- Import Riverpod
 import 'package:login_app_2025/constants/app_colors.dart';
 import 'package:login_app_2025/ui/auth/login_screen.dart';
-import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/admin_dashboard.dart';
+import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/widgets/bottom_navigation_bar.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/employee_dashboard.dart';
 import 'firebase_options.dart';
 
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const LoginScreen(),
-        '/adminHome': (context) => const AdminDashboard(),
+        '/adminHome': (context) => const AdminDashboardState(),
         '/employeeHome': (context) => const EmployeeDashboard(),
       },
       theme: PastelDuskTheme.light,

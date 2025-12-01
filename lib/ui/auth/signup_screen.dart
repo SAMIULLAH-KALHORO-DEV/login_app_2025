@@ -67,7 +67,7 @@ class _SignupScreenState extends State<SignupScreen> {
         });
   }
 
-  var options = ['Admin', 'employee'];
+  var options = ['Admin', 'Employee'];
   var _currentItemSelected = "Admin";
   var role = "Admin";
 

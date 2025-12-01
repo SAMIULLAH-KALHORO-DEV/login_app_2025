@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:login_app_2025/constants/app_theme.dart';
+import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/quick_access_panel/approval_screen/approval_screen.dart';
+import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/quick_access_panel/complinace_alart_card/complinace_alart_card.dart';
+import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/quick_access_panel/grid_view/grid_view.dart';
+import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/quick_access_panel/reports_screen/reports_screen.dart';
+import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/quick_access_panel/settings/settings.dart';
 import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/widgets/profile_section.dart';
-import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/widgets/role_base_grid.dart';
 import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/widgets/upcoming_events.dart';
 
 class AdminDashboard extends StatefulWidget {
@@ -12,7 +16,10 @@ class AdminDashboard extends StatefulWidget {
 }
 
 class _AdminDashboardState extends State<AdminDashboard> {
-  // int _selectedIndex = 0;
+  int currentIndex = 0;
+
+  final screens = [AdminDashboard(), ReportsScreen(), ApprovalsScreen(), SettingsScreen()];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,35 +32,23 @@ class _AdminDashboardState extends State<AdminDashboard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ProfileSection(),
-                SizedBox(height: 30),
-                Text('Quick Access Panel', style: TextsTheme().heading1sytle),
-                SizedBox(height: 30),
-                AdminRoleBasedGrid(),
+                ProfileSectionAdmin(),
+                // SizedBox(height: 30),
+                // Text('Quick Access Panel', style: TextsTheme().heading1sytle),
+                ComplianceAlertsCard(),
+                SizedBox(height: 20),
+                ManagementQuickLinksGrid(),
+                SizedBox(height: 20),
+                // AdminRoleBasedGrid(),
                 Text('Events', style: TextsTheme().heading1sytle),
-                SizedBox(height: 30),
-                UpcomingEvents(),
+                SizedBox(height: 20),
+                UpcomingEventsCardAdmin(),
               ],
             ),
           ),
         ),
       ),
-      // bottomNavigationBar: BottomNavBar(
-      //   currentIndex: _selectedIndex,
-      //   onItemTapped: (index) {
-      //     setState(() {
-      //       _selectedIndex = index;
-      //     });
-
-      //     switch (index) {
-      //       case 1:
-      //       case 2:
-      //       case 3:
-      //         Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const SubmittedSurveyList()));
-      //         break;
-      //     }
-      //   },
-      // ),
+    
     );
   }
 }
