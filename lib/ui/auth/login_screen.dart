@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
         children: [
           const GeometricBlockBackground(),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
             child: SafeArea(
               child: SingleChildScrollView(
                 child: Column(
@@ -134,7 +134,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Text('Forget Password'),
                       ),
                     ),
-                    SizedBox(height: 15),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -147,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 15),
+                    // SizedBox(height: 15),
                     RoundBotton(
                       ontap: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context) => LoginWithPhoneNumber()));

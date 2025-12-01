@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_app_2025/constants/app_colors.dart';
 
 class SurveyDetailPage extends StatelessWidget {
   final String surveyId;
@@ -9,13 +10,13 @@ class SurveyDetailPage extends StatelessWidget {
   Widget buildField(String title, String? value) {
     final isUrdu = RegExp(r'[\u0600-\u06FF]').hasMatch(value ?? '');
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
       child: Column(
         crossAxisAlignment: isUrdu ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           Text(
             title,
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            style: PastelDuskTheme.light.textTheme.titleLarge!.copyWith(fontFamily: 'manrope'),
             textAlign: isUrdu ? TextAlign.right : TextAlign.left,
           ),
           const SizedBox(height: 4),
@@ -24,7 +25,7 @@ class SurveyDetailPage extends StatelessWidget {
             textDirection: isUrdu ? TextDirection.rtl : TextDirection.ltr,
             textAlign: isUrdu ? TextAlign.right : TextAlign.left,
           ),
-          const Divider(),
+          Divider(color: AppColors.cardBorderColor, thickness: 1),
         ],
       ),
     );

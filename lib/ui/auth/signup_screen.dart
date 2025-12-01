@@ -79,7 +79,7 @@ class _SignupScreenState extends State<SignupScreen> {
         children: [
           const GeometricBlockBackground(),
           Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.symmetric(horizontal: 30.0),
             child: SingleChildScrollView(
               child: SafeArea(
                 child: Column(
@@ -146,14 +146,14 @@ class _SignupScreenState extends State<SignupScreen> {
                           TextFormField(
                             keyboardType: TextInputType.text,
                             controller: usernamecontroller,
-
                             decoration: InputDecoration(
-                              labelText: 'User Name ie. sami, kashif',
-                              enabledBorder: OutlineInputBorder(
+                              labelText: 'User name',
+                              labelStyle: TextStyle(color: AppColors.secondaryTextHint),
+
+                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
+                                borderSide: BorderSide(color: AppColors.cardBorderColor, width: 1),
                               ),
-                              suffixIcon: Icon(Icons.person),
                             ),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -174,7 +174,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               labelText: 'Email',
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
+                                borderSide: BorderSide(color: AppColors.cardBorderColor, width: 1),
                               ),
                               suffixIcon: Icon(Icons.person),
                             ),
@@ -195,7 +195,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               labelText: 'Add Password',
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide(color: ColorsTheme().borderColor, width: 1.5),
+                                borderSide: BorderSide(color: AppColors.cardBorderColor, width: 1),
                               ),
                               suffixIcon: Icon(Icons.person),
                             ),
@@ -235,6 +235,15 @@ class _SignupScreenState extends State<SignupScreen> {
                           child: Text('Login'),
                         ),
                       ],
+                    ),
+                    SizedBox(height: 40),
+                    Text(
+                      'Shaheen Services Pvt Ltd. All Rights Reserved @2025',
+                      style: PastelDuskTheme.light.textTheme.displaySmall!.copyWith(
+                        color: AppColors.secondaryTextHint,
+                        fontSize: 12,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
                   ],
                 ),

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:login_app_2025/constants/app_colors.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/quick_access_panel/Surveys/survey_forms/submit_survey_lists/submitted_survey_details.dart';
 // make this file next
 
@@ -65,7 +66,15 @@ class _SubmittedSurveyListState extends State<SubmittedSurveyList> {
                 margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                 elevation: 2,
                 child: ListTile(
-                  title: Text(reporterName, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                  title: Text(
+                    reporterName,
+                    style: PastelDuskTheme.light.textTheme.titleLarge!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.primaryText,
+                      fontFamily: 'manrope',
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                   subtitle: Text(date, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 11)),
                   // subtitle: FutureBuilder<String>(
                   //   future: getUsername(FirebaseAuth.instance.currentUser!.uid),
@@ -82,11 +91,10 @@ class _SubmittedSurveyListState extends State<SubmittedSurveyList> {
                   trailing: IconButton(
                     onPressed: () async {
                       await FirebaseFirestore.instance.collection("SurveyForms").doc(doc.id).delete();
-                      
 
                       // Utils().toastMessage('');
                     },
-                    icon: const Icon(Icons.delete, size: 18),
+                    icon: const Icon(Icons.delete, size: 18, color: AppColors.danger),
                   ),
                   onTap: () {
                     Navigator.push(
