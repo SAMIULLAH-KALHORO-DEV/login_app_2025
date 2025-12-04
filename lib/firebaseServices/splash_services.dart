@@ -56,11 +56,11 @@ class SplashScreen extends ConsumerWidget {
             }
           },
           loading: () => _loading(),
-          error: (_, __) => _redirect(context, LoginScreen()),
+          error: (_, _) => _redirect(context, LoginScreen()),
         );
       },
       loading: () => _loading(),
-      error: (_, __) => _redirect(context, LoginScreen()),
+      error: (_, _) => _redirect(context, LoginScreen()),
     );
   }
 

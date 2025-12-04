@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:login_app_2025/constants/app_colors.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/quick_access_panel/annoucements/annoucements.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/quick_access_panel/assigned_jobs/assigned_jobs.dart';
-import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/quick_access_panel/compliance_and_safety/compliance_and_safety.dart'
-    hide AppColors;
+import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/quick_access_panel/compliance_and_safety/compliance_and_safety.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/quick_access_panel/inventory_requests/inventory_requests.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/quick_access_panel/my_performance/my_performance.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/quick_access_panel/timer_sheet/timer_sheet.dart';
