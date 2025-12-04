@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login_app_2025/constants/app_colors.dart';
 import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/quick_access_panel/Surveys/survey_forms/submit_survey_lists/submitted_survey_lists.dart';
-import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/quick_access_panel/Surveys/surveys_screen.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/quick_access_panel/services/fumigation_serivces/fumigation_services_monthly_list.dart';
-import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/screens/surveys.dart';
 
 class ReportsScreen extends StatelessWidget {
   const ReportsScreen({super.key});
