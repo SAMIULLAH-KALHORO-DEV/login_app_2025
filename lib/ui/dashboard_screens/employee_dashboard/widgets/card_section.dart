@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login_app_2025/constants/app_colors.dart';
+import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/quick_access_panel/assigned_jobs/assigned_jobs.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/quick_access_panel/services/fumigation_serivces/fumigation_form.dart';
 
 /// Reusable Priority Card Row widget for dashboard sections
@@ -110,10 +111,25 @@ class _ProgressCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double completionRate = 6 / 8;
-    const int completed = 6;
-    const int total = 8;
+    // const double completionRate = 0.75;
+    // const int completed = 6;
 
+    // const int total = 8;
+    // final pending = AssignedJobs().dailyTasks.where((t) => t['status'] != 'Completed').length;
+    // final total = AssignedJobs().dailyTasks.length.toString();
+    // final completed = AssignedJobs().dailyTasks.where((t) => t['status'] == 'Completed').length;
+    // final completionRate = total == 0 ? 0.0 : total / completed; // always accurate
+
+    //
+
+    final total = AssignedJobs().dailyTasks.length;
+    final completed = AssignedJobs().dailyTasks.where((t) => t['status'] == 'Completed').length;
+
+    final pending = total - completed;
+
+    final completionRate = total == 0 ? 0.0 : completed / total; // always accurate
+
+    //
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -147,7 +163,7 @@ class _ProgressCard extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              '$completed / $total Jobs',
+              '$pending / $total Jobs',
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold),
             ),
           ],
@@ -162,7 +178,8 @@ class _AlertsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const alertCount = 2;
+    // const alertCount = 2;
+    final pending = AssignedJobs().dailyTasks.where((t) => t['status'] != 'Completed').length;
 
     return Card(
       // color: AppColors.primaryInteraction.withOpacity(0.1),
@@ -183,7 +200,7 @@ class _AlertsCard extends StatelessWidget {
             Icon(Icons.warning_amber_rounded, size: 40, color: AppColors.primaryInteraction),
             const SizedBox(height: 10),
             Text(
-              '$alertCount Pending',
+              '$pending Pending',
               style: Theme.of(
                 context,
               ).textTheme.titleLarge!.copyWith(color: AppColors.primaryInteraction, fontSize: 18),

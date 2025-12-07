@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'; // <-- Import Riverpod
 import 'package:login_app_2025/constants/app_colors.dart';
+import 'package:login_app_2025/firebaseServices/splash_services.dart';
 import 'package:login_app_2025/ui/auth/login_screen.dart';
 import 'package:login_app_2025/ui/dashboard_screens/admin_dashboard/widgets/admin_dashboard_state.dart';
 import 'package:login_app_2025/ui/dashboard_screens/employee_dashboard/widgets/employee_dashboard_state.dart';
@@ -25,9 +26,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      home: const AuthWrapper(),
       initialRoute: '/',
       routes: {
-        '/': (context) => const LoginScreen(),
+        // '/': (context) => const LoginScreen(),
         '/adminHome': (context) => const AdminDashboardState(),
         '/employeeHome': (context) => const EmployeeDashboardState(),
       },

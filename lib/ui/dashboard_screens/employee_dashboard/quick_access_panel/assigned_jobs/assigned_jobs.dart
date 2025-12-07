@@ -9,6 +9,7 @@ import 'package:login_app_2025/constants/app_colors.dart';
 
 class AssignedJobs extends StatelessWidget {
   AssignedJobs({super.key});
+  
 
   final List<Map<String, dynamic>> dailyTasks = [
     {
@@ -35,8 +36,8 @@ class AssignedJobs extends StatelessWidget {
       'client': 'Telenor Microfinance Bank',
       'location': 'Head Office, All Floors',
       'time': '2:00 PM - 4:00 PM',
-      'status': 'Pending',
-      'color': AppColors.dataViz3, // Amber
+      'status': 'Completed',
+      'color': AppColors.dataViz4, // Amber
     },
     {
       'id': 'WO-399',
@@ -48,6 +49,8 @@ class AssignedJobs extends StatelessWidget {
       'color': AppColors.dataViz4, // Green
     },
   ];
+
+  final dateTime = DateTime.now().toString();
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +82,7 @@ class AssignedJobs extends StatelessWidget {
               children: [
                 Text(
                   // --- RENAMED: 'Tasks for Today' instead of 'Daily Roster' ---
-                  'Tasks for Today: November 29, 2025',
+                  'Tasks for Today: ${dateTime.split(' ')[0]}',
                   style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
                 ),
                 Text(
